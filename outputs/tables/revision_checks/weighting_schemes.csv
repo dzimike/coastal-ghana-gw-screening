@@ -1,0 +1,7 @@
+scheme,spearman_vs_equal,vh_retained,vh_pop_millions
+equal_5comp,1.0,91,6.15
+primary_4comp_noSH,0.711,67,5.21
+hazard_dominant,0.982,82,6.31
+exposure_dominant,0.974,82,7.67
+SH_sceptic,0.831,73,5.17
+GWH_removed,0.997,88,6.04

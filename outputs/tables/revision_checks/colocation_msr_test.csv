@@ -1,0 +1,5 @@
+threshold,randomised,observed_hh,null_mean,null_95pct,p_one_sided
+Q75,UGPI randomised,29,28.8,40.0,0.5147
+Q75,SH randomised,29,30.7,44.0,0.6091
+Q90,UGPI randomised,8,5.9,13.0,0.3091
+Q90,SH randomised,8,6.4,15.0,0.3576

@@ -1,0 +1,39 @@
+name: ghana-groundwater-subsidence
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  - numpy
+  - pandas
+  - geopandas
+  - rasterio
+  - rioxarray
+  - xarray
+  - netcdf4
+  - h5netcdf
+  - h5py
+  - scipy
+  - scikit-learn
+  - matplotlib
+  - shapely
+  - pyproj
+  - fiona
+  - gdal
+  - jupyterlab
+  - ipykernel
+  - tqdm
+  - pyyaml
+  - cartopy          # for publication-quality maps with coastlines and projections
+  - seaborn          # statistical visualisation
+  - statsmodels      # time-series decomposition and regression
+  - dask             # parallel / out-of-core processing of large raster stacks
+  - bottleneck       # fast NaN-aware array operations used by xarray
+  - pip
+  - pip:
+      - pymannkendall   # Mann-Kendall trend test and Sen's slope
+      - earthaccess      # NASA Earthdata programmatic download
+      - geemap           # Google Earth Engine Python API + mapping
+      - leafmap          # interactive geospatial mapping (Folium / ipyleaflet)
+      - streamlit        # dashboard development
+      - plotly           # interactive figures for dashboard

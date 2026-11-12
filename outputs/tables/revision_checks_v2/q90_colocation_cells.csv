@@ -1,0 +1,9 @@
+cell_id,area,centroid_lat,centroid_lon,insar_n_valid,ugpi_urban_only,sub_hazard
+C016R002,Takoradi,4.93,-1.784,0,0.288,0.448
+C028R009,Winneba–Kasoa,5.559,-0.698,15625,0.102,0.549
+C029R007,Winneba–Kasoa,5.382,-0.612,14196,0.077,0.465
+C034R011,Accra–Tema,5.738,-0.156,1118,0.246,0.424
+C035R010,Accra–Tema,5.649,-0.068,0,0.319,0.518
+C035R011,Accra–Tema,5.737,-0.066,0,0.188,0.401
+C036R010,Accra–Tema,5.663,0.009,0,0.145,0.417
+C036R011,Accra–Tema,5.737,0.024,0,0.244,0.479

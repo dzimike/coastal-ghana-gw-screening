@@ -1,0 +1,5 @@
+component,rho_primary,rho_primary_without,rho_5comp
+Climate Stress (CS),0.84,0.08,0.69
+Exposure (E),0.54,0.93,0.55
+Vulnerability (V),-0.26,0.87,-0.24
+Subsidence Hazard (SH),0.43,,0.8

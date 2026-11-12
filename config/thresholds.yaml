@@ -1,0 +1,165 @@
+# config/thresholds.yaml
+# ============================================================
+# Classification thresholds and index parameters for the
+# Ghana groundwater-subsidence project.
+#
+# All thresholds should be reviewed and adjusted if local
+# evidence, noise levels, or expert knowledge suggest
+# different breakpoints. Document any changes here.
+# ============================================================
+
+# --- Groundwater Drought Severity Index (GDSI) ---
+# Based on standardised groundwater storage anomalies (z-scores)
+gdsi:
+  wet_extreme:      1.5    # GDSI >= 1.5 → Extremely wet
+  wet_moderate:     1.0    # 1.0 to 1.5  → Moderately wet
+  wet_mild:         0.5    # 0.5 to 1.0  → Mildly wet
+  near_normal_low: -0.5    # -0.5 to 0.5 → Near normal
+  drought_mild:    -1.0    # -1.0 to -0.5→ Mild groundwater drought
+  drought_moderate: -1.5   # -1.5 to -1.0→ Moderate groundwater drought
+  drought_severe:  -2.0    # -2.0 to -1.5→ Severe groundwater drought
+                           # < -2.0      → Extreme groundwater drought
+  classes:
+    - label: Extremely wet
+      min:  1.5
+      max:  null
+    - label: Moderately wet
+      min:  1.0
+      max:  1.5
+    - label: Mildly wet
+      min:  0.5
+      max:  1.0
+    - label: Near normal
+      min: -0.5
+      max:  0.5
+    - label: Mild groundwater drought
+      min: -1.0
+      max: -0.5
+    - label: Moderate groundwater drought
+      min: -1.5
+      max: -1.0
+    - label: Severe groundwater drought
+      min: -2.0
+      max: -1.5
+    - label: Extreme groundwater drought
+      min:  null
+      max: -2.0
+
+# --- Land subsidence / surface displacement ---
+# Units: mm/year (negative = downward movement / subsidence)
+subsidence:
+  stable_min:        -2.0   # -2 to +2 mm/yr → Stable
+  stable_max:         2.0
+  low_min:           -5.0   # -5 to -2 mm/yr → Low subsidence
+  low_max:           -2.0
+  moderate_min:     -10.0   # -10 to -5 mm/yr → Moderate
+  moderate_max:      -5.0
+  high_min:         -20.0   # -20 to -10 mm/yr → High
+  high_max:         -10.0
+                             # < -20 mm/yr     → Very high
+  classes:
+    - label: Uplift / stable
+      min_mmyr:  -2.0
+      max_mmyr:  null     # open upper end
+    - label: Stable
+      min_mmyr:  -2.0
+      max_mmyr:   2.0
+    - label: Low subsidence
+      min_mmyr:  -5.0
+      max_mmyr:  -2.0
+    - label: Moderate subsidence
+      min_mmyr: -10.0
+      max_mmyr:  -5.0
+    - label: High subsidence
+      min_mmyr: -20.0
+      max_mmyr: -10.0
+    - label: Very high subsidence
+      min_mmyr:  null
+      max_mmyr: -20.0
+  coherence_minimum: 0.4   # InSAR coherence below this is masked
+  notes: >
+    Thresholds are provisional. Adjust based on InSAR noise floor,
+    atmospheric artefact magnitude, and local geological evidence.
+    Very high subsidence (< -20 mm/yr) in coastal Ghana would be
+    unusually rapid and should be validated carefully.
+
+# --- TerraClimate PDSI drought thresholds ---
+pdsi:
+  wet_extreme:      4.0
+  wet_severe:       3.0
+  wet_moderate:     2.0
+  near_normal_high: 0.5
+  near_normal_low: -0.5
+  drought_mild:    -1.0
+  drought_moderate: -2.0
+  drought_severe:  -3.0
+  drought_extreme: -4.0
+
+# --- Built-up / NDBI classification ---
+ndbi:
+  built_up_threshold: 0.0    # NDBI > 0 classified as built-up / urban
+  vegetation_threshold: 0.0  # NDVI > 0 suggests vegetated surface
+
+# --- Building footprint confidence (Google Open Buildings) ---
+buildings:
+  confidence_threshold: 0.65   # retain buildings with confidence >= 0.65
+  min_area_m2: 10.0            # remove footprints smaller than 10 m²
+  max_area_m2: 50000.0         # flag footprints larger than 50 000 m² for review
+
+# --- Integrated risk index (CGSRI) ---
+# Final classification of the Coastal Groundwater-Subsidence Risk Index
+risk_index:
+  classification_method: natural_breaks   # options: quantiles, natural_breaks, equal_interval
+  n_classes: 5
+  class_labels:
+    - Very low
+    - Low
+    - Moderate
+    - High
+    - Very high
+  # Default equal weights (sum to 1.0); adjust for sensitivity analysis
+  weights:
+    gw_hazard:        0.25   # groundwater storage decline + drought frequency
+    subsidence_hazard: 0.20  # subsidence rate
+    urban_pressure:   0.20   # urban groundwater pressure index
+    climate_stress:   0.10   # rainfall deficit / PDSI
+    exposure:         0.15   # population, buildings, infrastructure
+    vulnerability:    0.10   # piped water access, elevation, informal settlements
+  notes: >
+    Weights must sum to 1.0. Begin with equal weighting, then test
+    sensitivity using expert-elicited weights and PCA-derived weights.
+    Document all weighting scenarios separately.
+
+# --- Urban Groundwater Pressure Index (UGPI) ---
+ugpi:
+  weights:
+    building_density:       0.20
+    population_density:     0.20
+    builtup_growth_rate:    0.15
+    borehole_density:       0.15
+    industrial_intensity:   0.10
+    piped_water_access:     0.10   # inverse indicator
+    drought_frequency:      0.10
+  normalisation: minmax
+  notes: >
+    Piped water access is an inverse indicator (higher access = lower
+    groundwater pressure). Apply invert_indicator() before weighting.
+
+# --- Mann-Kendall trend test ---
+mann_kendall:
+  significance_level: 0.05   # alpha = 0.05 → 95 % confidence
+  method: original            # options: original, hamed_rao, yue_wang, seasonal
+  notes: >
+    Use hamed_rao or yue_wang variant if autocorrelation is detected
+    in the monthly time series. Report Sen's slope in cm/year.
+
+# --- GRACE data quality ---
+grace:
+  min_months_required: 60    # minimum usable months for trend analysis
+  gap_fill_method: linear_interpolation   # options: none, linear_interpolation, spline
+  leakage_correction: applied_by_mascon   # for mascon products; note in methods
+
+# --- Spatial outlier filtering ---
+outliers:
+  z_score_threshold: 3.5     # flag raster cells with |z| > 3.5 as suspect
+  iqr_multiplier: 1.5        # for IQR-based outlier detection in time series

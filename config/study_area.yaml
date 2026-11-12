@@ -1,0 +1,130 @@
+# config/study_area.yaml
+# ============================================================
+# Study area definitions for coastal Ghana groundwater-
+# subsidence-urban growth project.
+# ============================================================
+
+# --- Coordinate reference system ---
+crs:
+  epsg: 32630
+  description: WGS 84 / UTM Zone 30N
+  proj4: "+proj=utm +zone=30 +datum=WGS84 +units=m +no_defs"
+  geographic_epsg: 4326
+  description_geographic: WGS 84 (geographic, decimal degrees)
+
+# --- Coastal buffer distances (metres) ---
+coastal_buffers:
+  primary_km: 30
+  extended_km: 50
+  primary_m: 30000
+  extended_m: 50000
+
+# --- Approximate bounding box for coastal Ghana (WGS 84) ---
+# Used for initial data downloads and clipping before reprojection
+bounding_box:
+  west:  -3.25
+  east:   1.20
+  south:  4.50
+  north:  6.50
+  description: "Approximate envelope covering Ghana's southern coastal belt"
+
+# --- Key study sub-areas ---
+# Approximate centroid coordinates in decimal degrees (WGS 84)
+sub_areas:
+  accra_tema:
+    name: Greater Accra Metropolitan Area and Tema Industrial Corridor
+    lon_centre: -0.10
+    lat_centre:  5.56
+    priority: high
+    notes: >
+      Largest urban agglomeration in Ghana; significant borehole dependence
+      in peri-urban areas; industrial groundwater demand in Tema.
+
+  weija_densu:
+    name: Weija-Densu Basin
+    lon_centre: -0.37
+    lat_centre:  5.57
+    priority: high
+    notes: >
+      Major surface water reservoir for Accra supply; basin hydrology
+      linked to groundwater recharge dynamics.
+
+  ada_coast:
+    name: Ada East and Ada West
+    lon_centre:  0.63
+    lat_centre:  5.78
+    priority: high
+    notes: >
+      Low-lying delta environment; high salinity intrusion and subsidence
+      risk; Volta River influence.
+
+  keta_anloga:
+    name: Keta-Anloga Coastal Zone
+    lon_centre:  0.99
+    lat_centre:  5.91
+    priority: high
+    notes: >
+      Barrier island and lagoon system; historically vulnerable to flooding
+      and coastal erosion; shallow water table.
+
+  winneba_cape_coast:
+    name: Winneba and Cape Coast Corridor
+    lon_centre: -1.25
+    lat_centre:  5.13
+    priority: medium
+    notes: >
+      Growing peri-urban settlements between two regional capitals;
+      limited piped water access in surrounding communities.
+
+  sekondi_takoradi:
+    name: Sekondi-Takoradi Urban-Industrial Corridor
+    lon_centre: -1.75
+    lat_centre:  4.93
+    priority: high
+    notes: >
+      Ghana's main oil-industry port city; rapid population and
+      infrastructure growth linked to offshore oil development.
+
+# --- Analysis grid resolutions (metres) ---
+analysis_grids:
+  coarse_km: 25
+  coarse_m: 25000
+  fine_km: 10
+  fine_m: 10000
+
+# --- Time periods ---
+time_periods:
+  grace_start: "2002-04-01"
+  grace_mission_gap_start: "2017-07-01"
+  grace_mission_gap_end: "2018-06-01"
+  grace_fo_start: "2018-06-01"
+  grace_end: null   # null = use most recent available
+  sentinel1_start: "2014-10-03"
+  opera_disp_start: "2016-01-01"
+  urban_analysis_start: "2015-01-01"
+  urban_analysis_end: null
+  chirps_start: "1981-01-01"
+  terraclimate_start: "1958-01-01"
+  anomaly_baseline_start: "2004-01-01"
+  anomaly_baseline_end: "2009-12-31"
+  description_baseline: >
+    GRACE standard anomaly baseline (2004-2009); adjust if using
+    a mascon product with a different internal baseline.
+
+# --- Administrative boundary sources ---
+admin_sources:
+  ghana_boundary:
+    source: GADM
+    version: "4.1"
+    url: https://gadm.org/download_country.html
+    level: 0   # national boundary
+  districts:
+    source: GADM
+    version: "4.1"
+    url: https://gadm.org/download_country.html
+    level: 2   # district level
+  coastline:
+    source: GADM or OSM derived
+    notes: >
+      Extract Ghana coastline from GADM national boundary or use
+      OpenStreetMap coastline polygon for Ghana.

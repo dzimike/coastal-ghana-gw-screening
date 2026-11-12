@@ -1,0 +1,3 @@
+test,spearman,vh_retained
+GWH=0 & CS=CHIRPS-only for all cells,0.765,69
+exclude 123 non-GRACE cells (330-cell quintiles),,38

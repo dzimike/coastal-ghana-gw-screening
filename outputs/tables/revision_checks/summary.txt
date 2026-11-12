@@ -1,0 +1,109 @@
+== 1. UGPI built-up growth-rate cap sensitivity ==
+Implemented n_BUGR = uncapped min-max of builtup_growth_pct (verified).
+  P90 cap (229%): rho=0.812  Q75 shared 88  Q90 shared 27
+  P95 cap (339%): rho=0.853  Q75 shared 93  Q90 shared 33
+  P99 cap (527%): rho=0.902  Q75 shared 96  Q90 shared 35
+
+== 2. UGPI completeness / GRACE-coverage split ==
+  3-indicator UGPI missing values: 0 of 453
+  6-indicator (original) UGPI missing: 123  (= cells without nearest GRACE drought value: 123)
+  GWSA pixel trend range in covered cells: 4.37 to 26.46 mm/yr
+  GWH: zero in 330 covered cells; non-covered cells use 0.5 x normalised UGPI (range 0.000-0.265)
+  Harmonised alternative (GWH=0 everywhere, CS=CHIRPS-only everywhere): rho=0.765, VH retained 69/91
+  Excluding the 123 non-covered cells: VH (n=66) of 330-cell ranking shared with full-sample VH: 38; full-sample VH cells inside 330: 38
+
+== 3. Weighting schemes ==
+  equal_5comp          rho=1.000 VH retained 91/91 pop 6.15M
+  primary_4comp_noSH   rho=0.711 VH retained 67/91 pop 5.21M
+  hazard_dominant      rho=0.982 VH retained 82/91 pop 6.31M
+  exposure_dominant    rho=0.974 VH retained 82/91 pop 7.67M
+  SH_sceptic           rho=0.831 VH retained 73/91 pop 5.17M
+  GWH_removed          rho=0.997 VH retained 88/91 pop 6.04M
+  E+V top quintile shared with 5-comp VH: 35; with 4-comp VH: 37
+  pearson(E,UGPI)=0.72  pearson(E,V)=-0.33
+  rho(E,V)=-0.46  rho(n_BD,n_PD)=0.90 pearson(n_BD,n_PD)=0.82  rho(E,UGPI)=0.14
+  56 CGSRI-only VH cells: mean SH 0.42 vs all 0.24; mean elev 34.6 m vs all 82.1 m
+  Total pop High+VeryHigh (5comp): 9.32M; VH 5comp 6.146M; VH 4comp 5.211M
+
+== 4. Q90 co-location cells ==
+ cell_id  centroid_lat  centroid_lon  insar_n_valid
+C016R002         4.930        -1.784              0
+C028R009         5.559        -0.698          15625
+C029R007         5.382        -0.612          14196
+C034R011         5.738        -0.156           1118
+C035R010         5.649        -0.068              0
+C035R011         5.737        -0.066              0
+C036R010         5.663         0.009              0
+C036R011         5.737         0.024              0
+  Q75 HH=32, margins 114x114, expected under independence = 28.7
+  Q90 HH=8, margins 46x46, expected = 4.7
+
+== 5. Drought episodes ==
+  valid months 226 of 260 calendar months
+  start     end  calendar_months  observed_months  missing_months  min_sgwa min_month  n_moderate  n_mild  n_severe  n_extreme
+2002-04 2007-12               69               66               3     -2.31   2002-12          32      19        12          3
+2008-03 2008-04                2                2               0     -0.58   2008-04           0       2         0          0
+2015-12 2016-02                3                3               0     -1.14   2015-12           1       2         0          0
+2016-11 2016-12                2                2               0     -1.17   2016-11           1       1         0          0
+
+== 6. GWSA vs CHIRPS rainfall anomaly (same Ghana box) ==
+lag_months     r            p   n
+         0 0.048 4.703584e-01 226
+         1 0.119 7.399474e-02 226
+         2 0.148 2.626500e-02 226
+         3 0.124 6.341854e-02 226
+         4 0.090 1.769687e-01 225
+         5 0.123 6.582994e-02 224
+         6 0.125 6.182357e-02 224
+         7 0.125 6.118241e-02 224
+         8 0.124 6.409364e-02 223
+         9 0.078 2.489817e-01 222
+        10 0.090 1.815882e-01 221
+        11 0.143 3.412052e-02 220
+        12 0.143 3.492504e-02 219
+        13 0.163 1.627257e-02 218
+        14 0.130 5.607430e-02 217
+        15 0.146 3.176761e-02 216
+        16 0.151 2.697314e-02 215
+        17 0.167 1.466312e-02 214
+        18 0.173 1.120146e-02 214
+        19 0.138 4.472990e-02 213
+        20 0.176 1.014110e-02 212
+        21 0.164 1.713283e-02 211
+        22 0.122 7.797514e-02 210
+        23 0.141 4.107678e-02 209
+        24 0.121 8.104785e-02 208
+cum12_lag0 0.308 3.184930e-06 220
+cum12_lag3 0.350 1.144361e-07 217
+cum12_lag6 0.375 1.516634e-08 214
+
+== 7. Domain area for reservoir-equivalent estimate ==
+  Land-masked GRACE area in 4.0-11.5N, 3.5W-1.5E: 376,774 km2 (123 0.5deg cells)
+  1 m level change over 8,500 km2 of lake = 23 mm EWH over this domain
+
+== 8. SBAS network ==
+  pairs 159 (kept 159), dates 196, temporal components 37, largest 14 dates, singletons 0, closed triangles 0
+  temporal baselines: {6: 90, 12: 69}; |Bperp|>500: [(('20240401', '20240413'), -619.1, True)]
+
+== 9. Missing GRACE months (Apr 2002 - Dec 2023) ==
+  calendar 261, observed 226, missing 35: ['2002-06', '2002-07', '2003-06', '2011-01', '2011-06', '2011-12', '2012-05', '2012-10', '2013-03', '2013-08', '2013-09', '2014-02', '2014-07', '2014-12', '2015-05', '2015-06', '2015-10', '2015-11', '2016-04', '2016-09', '2016-10', '2017-02', '2017-07', '2017-08', '2017-09', '2017-10', '2017-11', '2017-12', '2018-01', '2018-02', '2018-03', '2018-04', '2018-05', '2018-08', '2018-09']
+
+== 10. InSAR coverage and northern cells ==
+          count   median   min    max
+bu_class                             
+low          23   5689.0     1  15625
+mid          22  15625.0  1848  15625
+high         22  15586.0  1118  15625
+  max built-up fraction any cell: 0.412
+  grid cells >=7.0N: 0; of these with >=10 InSAR px: 0
+  VH 5comp cells >=6.3N: 0; VH 4comp cells >=6.3N: 4
+  VH 5comp cells without GRACE coverage: 53; VH 4comp: 39
+  harmonised 4comp (GWH=0, CS CHIRPS-only): rho=0.465, VH retained 58/91
+
+== 11. Ramp sensitivity ==
+  plane: 0.370 mm/yr/km east, -0.065 mm/yr/km north (|grad| 0.38)
+  66-cell InSAR_haz rank correlation original vs ramp-corrected: rho=0.751
+  distance-velocity rho (66 cells): -0.71; east-offset vs velocity rho: 0.96
+  SH reproduction max abs error: 0.00e+00
+  5comp CGSRI with ramp-corrected SH: rho=0.960, VH retained 80/91
+  Q90 HH under ramp-corrected SH: 14 cells; shared with original 8: 8

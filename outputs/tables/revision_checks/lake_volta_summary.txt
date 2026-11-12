@@ -1,0 +1,13 @@
+Lake level months matched to GWSA: 149 of 169; level range -6.10-6.94 m; dh range -5.12 to 7.52 m
+uncorrected        n=149  Sen +13.34 mm/yr (p=2.9e-02)  2008-2019 -0.09 (p=0.98)
+    episode 2002-04–2007-12 (47 obs; min -2.06; extreme 2)
+    episode 2015-12–2016-02 (3 obs; min -1.05; extreme 0)
+full_supply_8502   n=149  Sen +8.64 mm/yr (p=2.9e-11)  2008-2019 +8.33 (p=0.00)  lake term SD 70.7 mm, range -116 to 170, r(lake, GWSA)=0.84
+    episode 2002-04–2003-08 (10 obs; min -2.20; extreme 1)
+    episode 2004-01–2005-09 (16 obs; min -1.76; extreme 0)
+    episode 2006-01–2006-05 (5 obs; min -1.49; extreme 0)
+    episode 2006-07–2007-04 (7 obs; min -1.31; extreme 0)
+    episode 2010-03–2010-06 (4 obs; min -1.34; extreme 0)
+reduced_6000       n=149  Sen +10.00 mm/yr (p=2.0e-05)  2008-2019 +5.70 (p=0.03)  lake term SD 49.9 mm, range -82 to 120, r(lake, GWSA)=0.84
+    episode 2002-04–2003-08 (10 obs; min -2.39; extreme 1)
+    episode 2003-12–2007-07 (33 obs; min -1.70; extreme 0)

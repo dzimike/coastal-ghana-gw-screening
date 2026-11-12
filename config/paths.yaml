@@ -1,0 +1,117 @@
+# config/paths.yaml
+# ============================================================
+# Project path configuration for the Ghana Groundwater-
+# Subsidence-Urban Growth integrated remote sensing project.
+#
+# All paths are relative to the project root unless stated.
+# Update base_dir to the absolute path on your machine.
+# ============================================================
+
+# --- Project root ---
+# base_dir is NOT used by src/config.py — the project root is derived automatically
+# from the location of config.py via Path(__file__).resolve().parent.parent.
+# Do not hardcode your local path here.
+# base_dir: /path/to/your/clone/ghana-groundwater-subsidence
+
+# --- Raw data inputs ---
+raw:
+  grace:          data/raw/grace
+  gldas:          data/raw/gldas
+  opera_disp:     data/raw/opera_disp
+  sentinel1:      data/raw/sentinel1
+  chirps:         data/raw/chirps
+  terraclimate:   data/raw/terraclimate
+  landsat:        data/raw/landsat
+  sentinel2:      data/raw/sentinel2
+  buildings:      data/raw/buildings
+  population:     data/raw/population
+  boundaries:     data/raw/boundaries
+  geology:        data/raw/geology
+  infrastructure: data/raw/infrastructure
+
+# --- Intermediate / harmonised data ---
+interim:
+  harmonized_grids:   data/interim/harmonized_grids
+  masked_study_area:  data/interim/masked_study_area
+  time_series:        data/interim/time_series
+  vector_cleaned:     data/interim/vector_cleaned
+
+# Specific interim time-series files
+interim_files:
+  grace_twsa_monthly:        data/interim/time_series/grace_twsa_monthly.csv
+  gldas_soil_moisture:       data/interim/time_series/gldas_soil_moisture_monthly.csv
+  gldas_canopy_water:        data/interim/time_series/gldas_canopy_water_monthly.csv
+
+# --- Processed outputs ---
+processed:
+  groundwater_anomalies: data/processed/groundwater_anomalies
+  subsidence:            data/processed/subsidence
+  urban_growth:          data/processed/urban_growth
+  climate_indices:       data/processed/climate_indices
+  pressure_indices:      data/processed/pressure_indices
+  risk_index:            data/processed/risk_index
+
+# Specific processed files
+processed_files:
+  # Groundwater
+  gwsa_monthly_grid:      data/processed/groundwater_anomalies/gwsa_monthly_grid.nc
+  gwsa_annual_mean:       data/processed/groundwater_anomalies/gwsa_annual_mean.tif
+  gwsa_trend_sens_slope:  data/processed/groundwater_anomalies/gwsa_trend_sens_slope.tif
+  gwsa_by_region:         data/processed/groundwater_anomalies/gwsa_by_region_monthly.csv
+  grace_twsa_grid:        data/processed/groundwater_anomalies/grace_twsa_grid.nc
+  # Subsidence
+  opera_displacement_rate:   data/processed/subsidence/opera_displacement_rate.tif
+  opera_subsidence_hotspots: data/processed/subsidence/opera_subsidence_hotspots.gpkg
+  sentinel1_velocity_map:    data/processed/subsidence/sentinel1_velocity_map.tif
+  sentinel1_point_ts:        data/processed/subsidence/sentinel1_point_timeseries.csv
+  # Urban growth
+  building_density_grid:  data/processed/urban_growth/building_density_grid.gpkg
+  builtup_change:         data/processed/urban_growth/builtup_change_2015_2025.tif
+  urban_expansion_rate:   data/processed/urban_growth/urban_expansion_rate.csv
+  # Climate
+  rainfall_anomaly:   data/processed/climate_indices/rainfall_anomaly_monthly.csv
+  pdsi_annual:        data/processed/climate_indices/pdsi_annual.tif
+  drought_frequency:  data/processed/climate_indices/drought_frequency.tif
+
+# --- Validation data ---
+validation:
+  boreholes:             data/validation/boreholes
+  field_observations:    data/validation/field_observations
+  institutional_records: data/validation/institutional_records
+  infrastructure_damage: data/validation/infrastructure_damage
+
+# --- Study area boundary outputs ---
+boundaries:
+  study_area_30km:   data/raw/boundaries/study_area_coastal_30km.gpkg
+  study_area_50km:   data/raw/boundaries/study_area_coastal_50km.gpkg
+  coastal_districts: data/raw/boundaries/coastal_districts.gpkg
+  grid_10km:         data/raw/boundaries/analysis_grid_10km.gpkg
+  grid_25km:         data/raw/boundaries/analysis_grid_25km.gpkg
+  ghana_boundary:    data/raw/boundaries/ghana_boundary.gpkg
+  ghana_coastline:   data/raw/boundaries/ghana_coastline.gpkg
+
+# --- Final outputs ---
+outputs:
+  maps:          outputs/maps
+  figures:       outputs/figures
+  tables:        outputs/tables
+  dashboards:    outputs/dashboards
+  policy_briefs: outputs/policy_briefs
+  manuscript:    outputs/manuscript
+
+output_files:
+  data_inventory: outputs/tables/data_inventory.csv
+
+# --- Documentation ---
+docs:
+  data_dictionary:         docs/data_dictionary.md
+  methodology:             docs/methodology.md
+  validation_plan:         docs/validation_plan.md
+  ethics_data_governance:  docs/ethics_and_data_governance.md
+  stakeholder_engagement:  docs/stakeholder_engagement.md
+
+# --- Source code ---
+src: src
+scripts: scripts
+notebooks: notebooks
+tests: tests

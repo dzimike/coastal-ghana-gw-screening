@@ -1,0 +1,12 @@
+data/*
+!data/derived/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.DS_Store
+*.h5
+*.nc
+*.tif
+*.zip
+.netrc
+.cdsapirc

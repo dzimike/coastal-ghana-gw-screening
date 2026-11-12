@@ -1,0 +1,166 @@
+# config/variables.yaml
+# ============================================================
+# Variable definitions, units, and dataset-specific field
+# names for the Ghana groundwater-subsidence project.
+# ============================================================
+
+# --- GRACE / GRACE-FO ---
+grace:
+  product: RL06v3 Mascon (CSR or JPL or GSFC)
+  primary_variable: lwe_thickness
+  units: cm equivalent water height (EWH)
+  convert_to_mm: true      # multiply by 10
+  fill_value: -99999.0
+  temporal_resolution: monthly
+  spatial_resolution_deg: 0.5
+  notes: >
+    Use mascon solutions in preference to spherical harmonic solutions
+    to reduce leakage artefacts. CSR RL06M, JPL RL06M, and GSFC mascon
+    products are all acceptable.
+  earthdata_shortname: TELLUS_GRACE_MASCON_CRI_TIME_SERIES_RL06_V3
+  doi: "10.5067/TEMSC-3JC63"
+
+# --- GLDAS (NOAH Land Surface Model v2.1) ---
+gldas:
+  product: GLDAS_NOAH025_M
+  version: "2.1"
+  temporal_resolution: monthly
+  spatial_resolution_deg: 0.25
+  units_soil_moisture: kg/m2
+  units_canopy_water: kg/m2
+  variables:
+    soil_moisture_layers:
+      - SoilMoi0_10cm_inst    # 0-10 cm
+      - SoilMoi10_40cm_inst   # 10-40 cm
+      - SoilMoi40_100cm_inst  # 40-100 cm
+      - SoilMoi100_200cm_inst # 100-200 cm
+    canopy_water: CanopInt_inst
+    evapotranspiration: Evap_tavg
+    runoff: Qs_acc
+    baseflow: Qsb_acc
+  total_soil_moisture_variable: SM_total   # derived sum of all layers
+  convert_kg_m2_to_cm_ewh: true            # divide by 10
+  fill_value: -9999.0
+  notes: >
+    Snow and ice terms excluded for Ghana (tropical climate).
+    GLDAS does not include a groundwater storage variable;
+    groundwater storage is isolated as the residual:
+    GWSA = TWSA - SMSA - CWSA (SWSA assumed negligible or proxied).
+  earthdata_shortname: GLDAS_NOAH025_M_2.1
+
+# --- OPERA Surface Displacement (DISP-S1) ---
+opera_disp:
+  product: OPERA_L3_DISP-S1
+  measurement: line_of_sight_displacement
+  units: metres
+  sign_convention: >
+    Negative values indicate movement away from satellite (subsidence
+    or eastward horizontal motion depending on geometry). Positive
+    values indicate movement toward satellite.
+  quality_flag_variable: recommended_mask
+  temporal_resolution: product-dependent (typically ~12 days or monthly composites)
+  spatial_resolution_m: 30
+  vertical_uncertainty_mm: 5   # approximate; verify with product documentation
+  notes: >
+    Convert line-of-sight (LOS) to vertical displacement only where
+    incidence angle and flight direction are known. Do not assume pure
+    vertical motion without justification.
+  source: https://opera.jpl.nasa.gov/products/disp-s1/
+
+# --- Sentinel-1 InSAR ---
+sentinel1:
+  sensor: C-band SAR
+  wavelength_cm: 5.6
+  frequency_ghz: 5.405
+  incidence_angle_range_deg: [29, 46]
+  polarisation: VV preferred for urban environments
+  temporal_baseline_days: [6, 12, 24, 36]
+  track_type: both ascending and descending preferred
+  processing_software: MintPy or SNAP + StaMPS
+  displacement_units: mm
+  velocity_units: mm/year
+  coherence_threshold: 0.4   # discard pixels below this value
+  notes: >
+    MintPy small-baseline subset (SBAS) or persistent scatterer (PS)
+    approaches are both acceptable. Use DEM from Copernicus GLO-30 for
+    topographic phase removal.
+
+# --- CHIRPS rainfall ---
+chirps:
+  product: CHIRPS v2.0
+  temporal_resolution: monthly
+  spatial_resolution_deg: 0.05
+  units: mm/month
+  variables:
+    precipitation: precip
+  source: https://www.chc.ucsb.edu/data/chirps
+  notes: >
+    CHIRPS uses a blended gauge-satellite algorithm (TRMM 3B42).
+    Available from 1981 to near-present with ~1-month latency.
+
+# --- TerraClimate ---
+terraclimate:
+  product: TerraClimate
+  temporal_resolution: monthly
+  spatial_resolution_arcsec: 30   # approximately 900 m
+  variables:
+    pdsi: PDSI                    # Palmer Drought Severity Index (unitless)
+    precipitation: ppt            # mm/month
+    evapotranspiration: pet       # mm/month (reference ET)
+    actual_evapotranspiration: aet # mm/month
+    soil_moisture: soil           # mm (top ~1.4 m)
+    temperature_max: tmax         # degrees C
+    temperature_min: tmin         # degrees C
+  source: https://www.climatologylab.org/terraclimate.html
+  doi: "10.1038/sdata.2017.191"
+  notes: >
+    PDSI range: +4 extreme wet to -4 extreme dry.
+    Values below -2 indicate moderate to severe drought.
+
+# --- Built-up indices (Landsat / Sentinel-2) ---
+spectral_indices:
+  ndbi:
+    name: Normalised Difference Built-Up Index
+    formula: "(SWIR - NIR) / (SWIR + NIR)"
+    range: [-1, 1]
+    built_up_threshold: "> 0.0"
+  ndvi:
+    name: Normalised Difference Vegetation Index
+    formula: "(NIR - Red) / (NIR + Red)"
+    range: [-1, 1]
+  mndwi:
+    name: Modified Normalised Difference Water Index
+    formula: "(Green - SWIR) / (Green + SWIR)"
+    range: [-1, 1]
+    water_threshold: "> 0.0"
+
+# --- Landsat band mapping (Landsat 8/9 OLI) ---
+landsat_bands:
+  blue:   B2
+  green:  B3
+  red:    B4
+  nir:    B5
+  swir1:  B6
+  swir2:  B7
+
+# --- Sentinel-2 band mapping ---
+sentinel2_bands:
+  blue:   B2   # 10 m
+  green:  B3   # 10 m
+  red:    B4   # 10 m
+  nir:    B8   # 10 m
+  swir1:  B11  # 20 m
+  swir2:  B12  # 20 m
+
+# --- WorldPop / GHSL ---
+population:
+  worldpop:
+    product: WorldPop Global 100m Population Grid
+    spatial_resolution_m: 100
+    units: persons per pixel
+    source: https://www.worldpop.org/
+  ghsl:
+    product: Global Human Settlement Layer (GHSL GHS-POP)
+    spatial_resolution_m: 100
+    epochs: [1975, 1990, 2000, 2005, 2010, 2015, 2020, 2025]
+    source: https://ghsl.jrc.ec.europa.eu/
