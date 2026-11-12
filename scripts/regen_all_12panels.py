@@ -237,7 +237,7 @@ ax2.set_xlim(sgwa_ts.index[0], sgwa_ts.index[-1])
 ax2.set_ylim(-3, 3)
 ax2.set_ylabel('Standardised GWSA (σ)')
 ax2.set_title('(b) Monthly standardised GWSA with drought-severity classes\n'
-              '(Thomas et al. [31]: mild −0.5/−1.0; moderate −1.0/−1.5; '
+              '(Thomas et al. [33]: mild −0.5/−1.0; moderate −1.0/−1.5; '
               'severe −1.5/−2.0; extreme <−2.0)', fontsize=8)
 handles_d = [mpatches.Patch(fc=DROUGHT_COLORS[c], alpha=0.5, label=c)
              for _, _, c in drought_thresholds]
