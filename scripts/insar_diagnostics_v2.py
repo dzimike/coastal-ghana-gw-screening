@@ -318,8 +318,9 @@ def main():
                         lw=0.5, color='#2166ac', alpha=0.6)
         a_.plot([datetime.strptime(x, '%Y%m%d') for x in dd if x in base], [base[x] for x in dd if x in base], 'k.', ms=3)
         name = 'Final network' if lab == 'v2' else 'Initial network'
-        a_.set_title(f'({"ab"[lab == "v2"]}) {name}: {len(pairs)} interferograms, {len(dd)} dates, '
-                     f'{temporal_components(pairs)} connected subset(s)', loc='left', fontsize=9)
+        a_.set_title(f'({"ab"[lab == "v2"]}) {name}', loc='left', fontweight='bold')
+        print(f'{name}: {len(pairs)} interferograms, {len(dd)} dates, '
+              f'{temporal_components(pairs)} connected subset(s)')
         a_.set_xlabel('Date')
     axs[0].set_ylabel('Perpendicular baseline (m)')
     plt.tight_layout()

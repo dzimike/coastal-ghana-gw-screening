@@ -18,25 +18,24 @@ districts = gpd.read_file(ROOT / 'data/raw/boundaries/coastal_districts.gpkg').t
 XL, YL = (-3.5, 1.5), (4.6, 7.2)
 
 
-def frame(ax, title):
+def frame(ax, label=None):
     districts.boundary.plot(ax=ax, edgecolor='#777777', lw=0.25)
     ax.set_xlim(XL)
     ax.set_ylim(YL)
-    ax.set_title(title, fontsize=8)
+    if label:
+        ax.set_title(label, loc='left', fontsize=9, fontweight='bold')
     ax.tick_params(labelsize=6)
 
 
 # S2 — components
-comps = [('climate_stress', '(a) Climate Stress (CHIRPS below-normal frequency)'),
-         ('exposure', '(b) Exposure'), ('vulnerability', '(c) Vulnerability'),
-         ('sub_hazard', '(d) Subsidence Hazard (exploratory index only)')]
+comps = [('climate_stress', '(a) Climate stress'), ('exposure', '(b) Exposure'),
+         ('vulnerability', '(c) Vulnerability'), ('sub_hazard', '(d) Subsidence hazard')]
 fig, axes = plt.subplots(2, 2, figsize=(11, 6.5))
 for ax, (c, t) in zip(axes.flat, comps):
     g.plot(ax=ax, column=c, cmap='YlOrRd', vmin=0, vmax=1, edgecolor='none', legend=True,
            legend_kwds={'shrink': 0.7})
-    frame(ax, f'{t}\nmean {g[c].mean():.2f}, SD {g[c].std():.2f}')
-fig.suptitle('Supplementary Fig. S2. CGSRI component scores (harmonised definitions). '
-             'GW Hazard is 0 in every cell (regional GWSA trend is positive) and is not mapped.', fontsize=8)
+    frame(ax, t)
+    ax.text(0.02, 0.04, f'mean {g[c].mean():.2f}, SD {g[c].std():.2f}', transform=ax.transAxes, fontsize=7)
 plt.tight_layout()
 plt.savefig(FIGS / 'figS2_cgsri_components.png')
 plt.close()
@@ -49,8 +48,7 @@ fig, ax = plt.subplots(figsize=(9, 5))
 g.plot(ax=ax, column='mc_vh_probability_primary', cmap='viridis', vmin=0, vmax=1, edgecolor='none', legend=True,
        legend_kwds={'label': 'Proportion of 1,000 weightings in Very High tier', 'shrink': 0.7})
 vh.boundary.plot(ax=ax, edgecolor='red', lw=0.6)
-frame(ax, f'Supplementary Fig. S5. Monte Carlo stability of the primary CGSRI Very High tier '
-          f'({int((vh.mc_vh_probability_primary >= 0.75).sum())} of 91 cells ≥ 0.75; red outlines = Very High at equal weights)')
+frame(ax)
 plt.savefig(FIGS / 'figS5_monte_carlo_stability.png')
 plt.close()
 
@@ -66,7 +64,7 @@ a1.plot(corr.reindex(full), color='#117733', lw=1.2, label='GWSA minus Lake Volt
 a1.axhline(0, color='k', lw=0.5)
 a1.set_ylabel('mm EWH')
 a1.legend(fontsize=7, loc='upper left')
-a1.set_title('(a) Regional GWSA and the Lake Volta storage term (anomalies vs 2004–2009 monthly climatology)', fontsize=8)
+a1.set_title('(a)', loc='left', fontsize=9, fontweight='bold')
 for s, c, lbl in [(lv.gwsa_mm, '#4477AA', 'uncorrected'), (corr, '#117733', 'corrected')]:
     z = (s - s.mean()) / s.std()
     a2.plot(z.reindex(full), color=c, lw=1, label=f'SGWA {lbl}')
@@ -75,8 +73,7 @@ for t in (-0.5, -1, -1.5, -2):
 a2.axhline(0, color='k', lw=0.5)
 a2.set_ylabel('Standardised GWSA')
 a2.legend(fontsize=7, loc='upper left')
-a2.set_title('(b) Standardised GWSA over the matched months (April 2002 – March 2019); dotted lines: drought thresholds', fontsize=8)
-fig.suptitle('Supplementary Fig. S8. Effect of removing Lake Volta storage (G-REALM V2 altimetry) from the regional GWSA', fontsize=9)
+a2.set_title('(b)', loc='left', fontsize=9, fontweight='bold')
 plt.tight_layout()
 plt.savefig(FIGS / 'figS8_lake_volta_correction.png')
 plt.close()

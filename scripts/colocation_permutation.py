@@ -71,17 +71,15 @@ chk = surrogates(u)[:200]
 print("surrogate Moran's I (UGPI) mean %.3f sd %.4f" % (np.mean([morans_i(x) for x in chk]), np.std([morans_i(x) for x in chk])))
 
 fig, axes = plt.subplots(1, 2, figsize=(10, 3.6))
-for ax, q in zip(axes, (0.75, 0.90)):
+for ax, q, lab in zip(axes, (0.75, 0.90), 'ab'):
     counts, obs = null[(q, 'UGPI randomised')]
     ax.hist(counts, bins=np.arange(counts.min(), counts.max() + 2) - 0.5, color='#9ECAE1', edgecolor='white')
     ax.axvline(obs, color='#A50026', lw=2, label=f'observed = {obs}')
     p = res[(res.threshold == f'Q{int(q * 100)}') & (res.randomised == 'UGPI randomised')].p_one_sided.iloc[0]
-    ax.set_title(f'Q{int(q * 100)} high-high cells (p = {p:.3f})', fontsize=9)
+    ax.set_title(f'({lab}) Q{int(q * 100)}', loc='left', fontsize=9, fontweight='bold')
     ax.set_xlabel('High-high count under spatially constrained null')
     ax.legend(fontsize=8)
 axes[0].set_ylabel('Surrogates')
-fig.suptitle(f"Supplementary Fig. S6. Moran spectral randomisation null distributions ({N_SURR} surrogates; "
-             f"Moran's I: UGPI {moran['UGPI']}, SH {moran['SH']})", fontsize=9)
 plt.tight_layout()
 plt.savefig(FIG, dpi=300, bbox_inches='tight')
 print('saved', FIG)
