@@ -1,0 +1,30 @@
+key,value,description
+v1_pairs,159,interferograms used in v1
+v1_temporal_components,37,disconnected temporal subsets in v1
+v2_pairs,385,interferograms used in v2 (20220915 excluded)
+v2_dates,195,acquisitions in v2
+v2_temporal_components,1,temporal subsets in v2
+v2_period,20160501-20241221,time span
+valid_px,318565,"pixels kept (tc>=0.7, avgSpatialCoh>=0.5)"
+valid_px_tc_only,1485496,pixels with tc>=0.7 alone
+los_median,-3.83,"median LOS velocity, mm/yr"
+los_iqr,10.58,"IQR LOS velocity, mm/yr"
+los_p5_p95,-25.1/1.8,"5th/95th percentile, mm/yr"
+vstd_median,0.41,"median formal velocity s.d., mm/yr"
+sd_raw,10.18,"spatial s.d. of LOS velocity, mm/yr"
+sd_era5,10.09,"spatial s.d. of LOS velocity, mm/yr"
+sd_era5_demerr,10.09,"spatial s.d. of LOS velocity, mm/yr"
+ramp_east,26.65,"planar gradient, mm/yr per 100 km eastward"
+ramp_north,-18.33,"planar gradient, mm/yr per 100 km northward"
+ramp_r2,0.206,variance explained by the plane
+corr_height,-0.169,correlation of LOS velocity with DEM height
+corr_era5_rate,0.295,correlation with the ERA5 delay rate (v1 raster: 0.88)
+kotoka_los,-0.56,"Kotoka Airport LOS, median of 121 px within 500 m"
+gnss_n_compared,2,stations compared (ACRA is the tie point)
+gnss_resid_rms,3.71,"RMS Vu residual, mm/yr"
+gnss_within_2sigma,1,stations with |residual| <= 2 sigma(GNSS Vu)
+cells_insar,56,grid cells with >= 10 valid pixels
+cells_insar_vel_range,-25.2/2.7,"min/max cell-mean LOS velocity, mm/yr"
+hq_cells,29,"cells with >= 10 high-quality pixels (tc>=0.9, avgSpatialCoh>=0.8)"
+hq_r,0.697,"r, HQ vs all-pixel cell mean"
+hq_rmse,4.83,"RMS difference, mm/yr"

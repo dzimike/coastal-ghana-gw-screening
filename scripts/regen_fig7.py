@@ -58,15 +58,15 @@ ax.set_title('(a) Proxy subsidence hazard, cells with <10 valid InSAR pixels (n=
              'mean of inverse elevation, built-up fraction and GW hazard score (= 0)' % (~has).sum(), fontsize=8)
 
 g.plot(ax=ax2, color='#EEEEEE', edgecolor='none')
-g[has].plot(ax=ax2, column='insar_vel_mmyr', cmap='RdBu_r', vmin=-25, vmax=5, edgecolor='none', legend=True,
-            legend_kwds={'label': 'LOS velocity (mm yr⁻¹)', 'shrink': 0.8})
+g[has].plot(ax=ax2, column='insar_vel_mmyr', cmap='RdBu', vmin=-25, vmax=25, edgecolor='none', legend=True,
+            legend_kwds={'label': 'LOS velocity (mm yr⁻¹; negative = away from satellite)', 'shrink': 0.8})
 districts.boundary.plot(ax=ax2, edgecolor='#555555', lw=0.35)
 furniture(ax2)
-ax2.set_title('(b) ERA5-corrected SBAS LOS velocity (n=%d cells, ≥10 valid pixels)\n'
+ax2.set_title('(b) Corrected SBAS LOS velocity, 2016–2024 (n=%d cells, ≥10 valid pixels)\n'
               'relative to reference pixel ~5.55°N, 0.42°W' % has.sum(), fontsize=8)
 ax2.text(0.02, 0.04, 'Relative LOS rates, not vertical subsidence.\n'
-                     'Uncorrected orbital ramp (~0.37 mm/yr per km eastward)\n'
-                     'dominates differences between cells.',
+                     'A planar trend (~0.27 mm/yr per km eastward) is present and\n'
+                     'not resolved by GNSS; cell differences are uncertain by several mm/yr.',
          transform=ax2.transAxes, fontsize=6, va='bottom',
          bbox=dict(boxstyle='round,pad=0.25', fc='white', alpha=0.85, lw=0.4))
 plt.tight_layout()

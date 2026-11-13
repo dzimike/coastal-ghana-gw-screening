@@ -1,21 +1,21 @@
 == 1. v1 -> v2 ==
-primary: rho=0.465, VH shared 58/91; 5comp: rho=0.764, VH shared 68/91
+primary: rho=0.465, VH shared 58/91; 5comp: rho=0.721, VH shared 62/91
 
 == 2. Results ==
 primary: range 0.123-0.393, mean 0.240; VH pop 9.233M (±25%: 6.9-11.5); H+VH pop 11.22M; VH lat 4.84-6.91; VH >=6.3N: 13
    W of 2.2W (Axim–Ivorian border): 26; 2.2–1.6W (Dixcove–Sekondi-Takoradi): 9; 1.6–1.0W (Elmina–Cape Coast–Saltpond): 14; 1.0–0.3W (Apam–Winneba–Kasoa): 17; 0.3W–0.3E (Accra–Tema): 12; E of 0.3E (Ada–Keta): 13
-5comp: range 0.099-0.412, mean 0.240; VH pop 8.835M (±25%: 6.6-11.0); H+VH pop 11.67M; VH lat 4.86-5.92; VH >=6.3N: 0
-   W of 2.2W (Axim–Ivorian border): 14; 2.2–1.6W (Dixcove–Sekondi-Takoradi): 6; 1.6–1.0W (Elmina–Cape Coast–Saltpond): 9; 1.0–0.3W (Apam–Winneba–Kasoa): 42; 0.3W–0.3E (Accra–Tema): 10; E of 0.3E (Ada–Keta): 10
-primary vs 5comp: rho=0.867, VH shared 62/91
-primary VH component means: climate_stress 0.75, exposure 0.15, vulnerability 0.34, sub_hazard 0.29 | all: climate_stress 0.55, exposure 0.07, vulnerability 0.34, sub_hazard 0.24
-5comp VH component means: climate_stress 0.68, exposure 0.15, vulnerability 0.34, sub_hazard 0.42 | all: climate_stress 0.55, exposure 0.07, vulnerability 0.34, sub_hazard 0.24
+5comp: range 0.099-0.388, mean 0.236; VH pop 9.541M (±25%: 7.2-11.9); H+VH pop 11.61M; VH lat 4.86-6.00; VH >=6.3N: 0
+   W of 2.2W (Axim–Ivorian border): 17; 2.2–1.6W (Dixcove–Sekondi-Takoradi): 7; 1.6–1.0W (Elmina–Cape Coast–Saltpond): 12; 1.0–0.3W (Apam–Winneba–Kasoa): 31; 0.3W–0.3E (Accra–Tema): 11; E of 0.3E (Ada–Keta): 13
+primary vs 5comp: rho=0.898, VH shared 67/91
+primary VH component means: climate_stress 0.75, exposure 0.15, vulnerability 0.34, sub_hazard 0.28 | all: climate_stress 0.55, exposure 0.07, vulnerability 0.34, sub_hazard 0.22
+5comp VH component means: climate_stress 0.70, exposure 0.16, vulnerability 0.34, sub_hazard 0.35 | all: climate_stress 0.55, exposure 0.07, vulnerability 0.34, sub_hazard 0.22
 
 == 3. Component importance (Table 4) ==
              component  rho_primary  rho_primary_without  rho_5comp
-   Climate Stress (CS)         0.84                 0.08       0.69
-          Exposure (E)         0.54                 0.93       0.55
-     Vulnerability (V)        -0.26                 0.87      -0.24
-Subsidence Hazard (SH)         0.43                  NaN       0.80
+   Climate Stress (CS)         0.84                 0.08       0.73
+          Exposure (E)         0.54                 0.93       0.54
+     Vulnerability (V)        -0.26                 0.87      -0.26
+Subsidence Hazard (SH)         0.44                  NaN       0.77
 rho(CS,E)=0.44 rho(CS,V)=-0.63 rho(E,V)=-0.46
 
 == 4. Weighting sensitivity (primary) ==
@@ -24,27 +24,28 @@ rho(CS,E)=0.44 rho(CS,V)=-0.63 rho(E,V)=-0.46
       primary climate_dominant                0.959           75      8.07
      primary exposure_dominant                0.980           79      9.86
 primary vulnerability_dominant                0.833           72      7.61
-                   5comp equal                0.867           62      8.83
-              5comp SH-sceptic                0.987           82      9.49
+                   5comp equal                0.898           67      9.54
+              5comp SH-sceptic                0.992           86      9.21
 MC (1000 draws, uniform 3-simplex, 0.05-0.50, seed 20261112): 62/91 VH cells with p>=0.75; median p in VH 0.88
 
 == 5. E+V comparison ==
-E+V top quintile shared with primary VH 34; with 5comp VH 33; primary-only cells: n=57, mean CS 0.79 vs 0.55
+E+V top quintile shared with primary VH 34; with 5comp VH 35; primary-only cells: n=57, mean CS 0.79 vs 0.55
 
 == 6. Co-location (Fisher) ==
 threshold  ugpi_thr  sh_thr  hh  expected  odds_ratio     p
-      Q75     0.045   0.316  29      28.7        1.02 1.000
-      Q90     0.077   0.393   8       4.7        2.04 0.116
+      Q75     0.045   0.307  29      28.7        1.02 1.000
+      Q90     0.077   0.341   9       4.7        2.43 0.037
  cell_id          area  centroid_lat  centroid_lon  insar_n_valid
 C016R002      Takoradi         4.930        -1.784              0
-C028R009 Winneba–Kasoa         5.559        -0.698          15625
-C029R007 Winneba–Kasoa         5.382        -0.612          14196
-C034R011    Accra–Tema         5.738        -0.156           1118
+C017R002      Takoradi         4.956        -1.711              0
+C022R004    Cape Coast         5.130        -1.246              0
+C030R009 Winneba–Kasoa         5.559        -0.518          14485
+C031R010 Winneba–Kasoa         5.649        -0.427          14739
 C035R010    Accra–Tema         5.649        -0.068              0
 C035R011    Accra–Tema         5.737        -0.066              0
 C036R010    Accra–Tema         5.663         0.009              0
 C036R011    Accra–Tema         5.737         0.024              0
-Q90 cells with >=10 valid InSAR px: 3; area counts {'Accra–Tema': 5, 'Winneba–Kasoa': 2, 'Takoradi': 1}
+Q90 cells with >=10 valid InSAR px: 2; area counts {'Accra–Tema': 4, 'Takoradi': 2, 'Winneba–Kasoa': 2, 'Cape Coast': 1}
 
-== 7. Ramp sensitivity (two-point plane) ==
-plane 0.370 E, -0.065 N; n cells 66; east-offset vs velocity rho 0.96; InSAR_haz rho 0.751; 5comp rho 0.985, VH retained 75/91; Q90 HH 12, shared with original 8/8
+== 7. Ramp sensitivity (plane fitted to the v2 velocity, insar_diagnostics_v2.py) ==
+plane 0.266 E, -0.183 N; n cells 56; east-offset vs velocity rho 0.57; InSAR_haz rho 0.506; 5comp rho 0.993, VH retained 85/91; Q90 HH 19, shared with original 8/9

@@ -368,7 +368,7 @@ _q90 = gdf_cs[(gdf_cs[ugpi_col] >= ugpi_q90) & (gdf_cs[sh_col] >= sh_q90)]
 ax.text(0.02, 0.97,
         f'Q75: {_h75} high-high cells; Fisher OR={_o75:.2f}, p={_p75:.2f}; spatial null p={_pmsr("Q75"):.2f}\n'
         f'Q90: {_h90} high-high cells; Fisher OR={_o90:.2f}, p={_p90:.2f}; spatial null p={_pmsr("Q90"):.2f}\n'
-        f'Not significant. {int((_q90.insar_n_valid >= 10).sum())} of {len(_q90)} Q90 cells have valid InSAR.',
+        f'Neither is significant under the spatial null. {int((_q90.insar_n_valid >= 10).sum())} of {len(_q90)} Q90 cells have valid InSAR.',
         transform=ax.transAxes, fontsize=6.2, va='top', ha='left', color='#333333',
         bbox=dict(boxstyle='round,pad=0.3', fc='white', alpha=0.85,
                   edgecolor='#CCCCCC', lw=0.5))

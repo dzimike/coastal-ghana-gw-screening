@@ -150,7 +150,7 @@ hh[['cell_id', 'area', 'centroid_lat', 'centroid_lon', 'insar_n_valid', 'ugpi_ur
 log(hh[['cell_id', 'area', 'centroid_lat', 'centroid_lon', 'insar_n_valid']].round(3).to_string(index=False))
 log(f'Q90 cells with >=10 valid InSAR px: {(hh.insar_n_valid >= 10).sum()}; area counts {hh["area"].value_counts().to_dict()}')
 
-log('\n== 7. Ramp sensitivity (two-point plane) ==')
+log('\n== 7. Ramp sensitivity (plane fitted to the v2 velocity, insar_diagnostics_v2.py) ==')
 REF, KM = (5.55, -0.42), 110.6
 
 
@@ -158,10 +158,8 @@ def dxy(lat, lon):
     return (lon - REF[1]) * KM * np.cos(np.deg2rad(REF[0])), (lat - REF[0]) * KM
 
 
-kx, ky = dxy(5.60, -0.19)
-ux, uy = dxy(5.75, -0.31)
-ax_, ay_ = dxy(5.56, -0.20)
-a_, b_ = np.linalg.solve([[kx, ky], [ux - ax_, uy - ay_]], [9.0, -7.4 * np.cos(np.deg2rad(38))])
+ins = pd.read_csv(OUT / 'insar_v2_summary.csv').set_index('key')['value']
+a_, b_ = float(ins['ramp_east']) / 100, float(ins['ramp_north']) / 100   # mm/yr per km
 has = g.insar_n_valid >= 10
 cx, cy = dxy(g.centroid_lat, g.centroid_lon)
 v0 = g.insar_vel_mmyr
