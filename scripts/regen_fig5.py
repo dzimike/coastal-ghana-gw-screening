@@ -1,5 +1,9 @@
 """Regenerate Fig. 5 (urban growth) from the GHSL built-up grid and area time series.
 
+Panel (c) sums GHSL built-up surface inside the 453 grid cells for each epoch and writes
+data/processed/urban_growth/builtup_area_timeseries_grid453.csv. (The earlier
+builtup_area_timeseries.csv summed the whole raster, which covers all of Ghana.)
+
 Panel (c) is ticked only at the five GHSL epochs (2000, 2010, 2015, 2020, 2025), so the
 axis no longer shows an empty 2005 position. Panels (a) and (b) follow notebook 12, cell 11.
 """
@@ -7,7 +11,10 @@ from pathlib import Path
 
 import geopandas as gpd
 import matplotlib
+import numpy as np
 import pandas as pd
+import rasterio
+from rasterio.features import geometry_mask
 
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt  # noqa: E402
@@ -36,7 +43,17 @@ def furniture(ax):
 
 ghana = gpd.read_file(BOUND / 'ghana_boundary.gpkg').to_crs('EPSG:4326')
 g = gpd.read_file(UG / 'builtup_grid10km.gpkg').to_crs('EPSG:4326')
-ts = pd.read_csv(UG / 'builtup_area_timeseries.csv').sort_values('year')
+g_utm = gpd.read_file(UG / 'builtup_grid10km.gpkg').to_crs('EPSG:32630')
+rows = []
+for year in (2000, 2010, 2015, 2020, 2025):
+    with rasterio.open(UG / f'ghsl_builtup_{year}_utm30n.tif') as src:
+        arr = src.read(1).astype(float)
+        inside = ~geometry_mask(g_utm.geometry, arr.shape, src.transform)
+        rows.append(dict(year=year, built_area_km2=arr[inside].sum() / 1e6,
+                         national_raster_km2=arr.sum() / 1e6))
+ts = pd.DataFrame(rows)
+ts['growth_km2_per_yr'] = ts.built_area_km2.diff() / ts.year.diff()
+ts.round(2).to_csv(UG / 'builtup_area_timeseries_grid453.csv', index=False)
 g['density_frac'] = g['builtup_m2_2020'] / (g['area_km2'] * 1e6)
 g['growth_pct'] = g['builtup_growth_pct'].clip(0, 400)
 

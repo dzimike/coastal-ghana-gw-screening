@@ -2,7 +2,7 @@
 
 Code accompanying the manuscript *Integrated Multi-Sensor Screening of Groundwater Storage Variability, Surface Displacement, and Urban Growth in Coastal Ghana Using GRACE/GRACE-FO, Sentinel-1 InSAR, and Urban Remote-Sensing Data* (submitted to *Environmental and Sustainability Indicators*, manuscript INDIC-7259).
 
-The workflow combines GRACE/GRACE-FO mascons and GLDAS (groundwater storage anomalies), Sentinel-1 SBAS InSAR (HyP3 ISCE burst products and MintPy), GHSL and WorldPop (urban pressure and exposure), and CHIRPS (climate stress) into a screening-level Coastal Groundwater-Subsidence Risk Index (CGSRI) on a 10 km grid covering the 50 km coastal belt of Ghana.
+The workflow combines GRACE/GRACE-FO mascons and GLDAS (groundwater storage anomalies), Sentinel-1 SBAS InSAR (HyP3 ISCE burst products and MintPy), GHSL and WorldPop (urban pressure and exposure), and CHIRPS (climate stress) into a screening-level Coastal Groundwater-Subsidence Risk Index (CGSRI) on a 10 km grid covering land within 50 km of Ghana's national boundary south of about 6.5°N: the coastal belt plus inland arms along the Ivorian and Togolese borders (151 of the 453 cells lie more than 50 km from the sea; `scripts/coastal_only_sensitivity.py` tests a coastal-only domain).
 
 ## Repository layout
 
@@ -13,7 +13,7 @@ The workflow combines GRACE/GRACE-FO mascons and GLDAS (groundwater storage anom
 | `notebooks/` | Analysis notebooks 01–12, in pipeline order (outputs cleared) |
 | `scripts/` | Data download, InSAR processing, index construction, diagnostics and figure scripts |
 | `outputs/tables/` | Derived tables used in the manuscript and supplement, including the reviewer-response diagnostics |
-| `data/derived/` | Small derived datasets: the per-cell CGSRI (v2), the regional GWSA series and the per-cell CHIRPS stress indicator |
+| `data/derived/` | Small derived datasets: the per-cell CGSRI (v2), the regional GWSA series, the per-cell CHIRPS stress indicator and the built-up area of the 453-cell grid by GHSL epoch |
 
 Raw and processed gridded data (about 150 GB) are not included; see *Data* below.
 
@@ -33,9 +33,9 @@ Earthdata (GRACE, GLDAS, HyP3) and Copernicus CDS (ERA5) credentials are read fr
 3. **Lake Volta storage**: `scripts/lake_volta_correction.py` removes Lake Volta storage (G-REALM V2 altimetry) from the GWSA for April 2002 to March 2019 and compares trends and drought episodes.
 4. **Climate stress**: `scripts/download_chirps.py`, notebook 08, `scripts/chirps_below_normal.py` (percentage of months in 2000–2024 with rainfall below the 1981–2010 calendar-month mean).
 5. **Sentinel-1 InSAR**: `scripts/submit_hyp3_isce_burst.py` and `scripts/submit_hyp3_network_fill.py` (230 gap-bridging and redundancy pairs), `scripts/fetch_hyp3_fill.py`, then `scripts/run_mintpy_v2.py`, which resamples the fill pairs to the common 80 m grid and runs MintPy on the connected 385-interferogram network (configuration in `config/mintpy_v2_smallbaselineApp.cfg`). `scripts/export_velocity_v2.py` exports the velocity fitted to the ERA5- and DEM-error-corrected time series (temporal coherence ≥ 0.7, average spatial coherence ≥ 0.5) as GeoTIFFs in EPSG:32630. `scripts/run_mintpy_sbas.py` and `scripts/run_era5_correction.py` are the superseded v1 workflow: the v1 velocity raster was dominated by the ERA5 delay rate, and its ERA5 delay file was empty after July 2022.
-6. **Urban growth and UGPI**: notebooks 07 and 09.
+6. **Urban growth and UGPI**: notebooks 07 and 09; `scripts/regen_fig5.py` sums GHSL built-up surface inside the 453 grid cells for each epoch (the GHSL rasters cover all of Ghana).
 7. **Risk index**: `scripts/build_cgsri_v2.py` builds the harmonised CGSRI, with identical component rules in every cell. The primary index has four components (groundwater hazard, climate stress, exposure, vulnerability); an exploratory five-component version adds InSAR-based subsidence hazard. Notebook 10 is the original (v1) construction.
-8. **Diagnostics**: `scripts/insar_diagnostics_v2.py` (network connectivity, coherence, planar trend, GNSS comparison, internal consistency, Table S1; summary in `outputs/tables/revision_checks_v2/insar_v2_summary.csv`), `scripts/revision_checks_v2.py` (harmonised index: sensitivity, Monte Carlo, co-location, ramp sensitivity), `scripts/colocation_permutation.py` (Moran spectral randomisation test) and `scripts/revision_checks.py` (v1 audit).
+8. **Diagnostics**: `scripts/insar_diagnostics_v2.py` (network connectivity, coherence, planar trend, GNSS comparison, internal consistency, Table S1; summary in `outputs/tables/revision_checks_v2/insar_v2_summary.csv`), `scripts/revision_checks_v2.py` (harmonised index: sensitivity, Monte Carlo, co-location, ramp sensitivity), `scripts/colocation_permutation.py` (Moran spectral randomisation test), `scripts/coastal_only_sensitivity.py` (index and co-location restricted to the 302 cells within 50 km of the sea) and `scripts/revision_checks.py` (v1 audit).
 9. **Figures**: `scripts/regen_all_12panels.py`, `scripts/regen_fig7.py`, `scripts/regen_supp_v2.py`, `scripts/insar_diagnostics_v2.py` (Supplementary Figs S1, S3, S4, S7), `scripts/build_conceptual_framework_fig.py`. `scripts/regenerate_supp_figures.py` produced the superseded v1 InSAR figures.
 
 Run order after the MintPy run: `export_velocity_v2.py`, `build_cgsri_v2.py --velocity <ROOT>/data/processed/subsidence/mintpy_velocity_los_v2.tif`, `insar_diagnostics_v2.py`, `revision_checks_v2.py`, `colocation_permutation.py`, then the figure scripts.

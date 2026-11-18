@@ -1,0 +1,18 @@
+item,value
+cells > 50 km from sea,151.0
+population 2020 in cells > 50 km (M),1.23
+built-up 2020 share in cells > 50 km,0.094
+cgsri: Very High cells > 50 km from sea,13.0
+cgsri: coastal-only top-quintile cells,60.0
+cgsri: of which in original Very High,60.0
+cgsri: coastal-only top-quintile population (M),8.03
+cgsri5: Very High cells > 50 km from sea,0.0
+cgsri5: coastal-only top-quintile cells,60.0
+cgsri5: of which in original Very High,60.0
+cgsri5: coastal-only top-quintile population (M),7.6
+"Q75 co-location, coastal-only: observed",22.0
+"Q75 co-location, coastal-only: expected",19.1
+"Q75 co-location, coastal-only: Fisher p",0.445
+"Q90 co-location, coastal-only: observed",6.0
+"Q90 co-location, coastal-only: expected",3.2
+"Q90 co-location, coastal-only: Fisher p",0.11
