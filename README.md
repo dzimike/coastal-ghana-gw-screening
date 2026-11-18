@@ -40,6 +40,17 @@ Earthdata (GRACE, GLDAS, HyP3) and Copernicus CDS (ERA5) credentials are read fr
 
 Run order after the MintPy run: `export_velocity_v2.py`, `build_cgsri_v2.py --velocity <ROOT>/data/processed/subsidence/mintpy_velocity_los_v2.tif`, `insar_diagnostics_v2.py`, `revision_checks_v2.py`, `colocation_permutation.py`, then the figure scripts.
 
+## Companion study: dry-season surface warming and urban groundwater-demand pressure (`scripts/paper2/`)
+
+Code for the companion manuscript *Dry-Season Surface Warming, Urban Expansion and Groundwater-Demand Pressure in Coastal Ghana: An Exploratory Multi-Sensor Screening* (in preparation). It reuses the 10 km grid, UGPI, CHIRPS climate stress and regional GWSA built above.
+
+1. `download_modis_lst.py`, `download_modis_h18.py`: MODIS MOD11A2 v6.1 tiles h17v08 and h18v08 (earthaccess; Earthdata login in `~/.netrc`).
+2. `process_modis_lst.py`: quality-masks (QC_Day bits 0–1 = 00), scales, reprojects to EPSG:32630 at 1 km, mosaics the two tiles and writes `lst_8day_by_cell.csv` (mean of valid pixels per 10 km cell and 8-day composite). Its trend step is the superseded v1 analysis.
+3. `build_uhgpi_v2.py`: restricts the grid to cells whose centroid lies within 50 km of the sea (Natural Earth 10 m coastline, read from the cartopy data directory); builds Dec–Feb seasons 2001–2023 (≥ 3 composites per season), Hamed–Rao trends with Benjamini–Hochberg FDR (≥ 18 seasons), the 2019–2023 LST anomaly, the Urban Heat–Groundwater Pressure Index (UHGPI; equal-weight mean of normalised LST trend, LST anomaly, UGPI and climate stress), the sensitivity tests, Moran spectral randomisation tests and the GWSA–LST temporal comparison. Outputs: `data/derived/paper2/` and `outputs/tables/paper2_v2/` (`build_log.txt` lists every reported statistic).
+4. `figures_paper2_v2.py`: Figs 1–8 of the manuscript.
+
+GRACE/GRACE-FO storage is used only as regional temporal context and is not a component of the UHGPI.
+
 ## Data
 
 All inputs are openly available:

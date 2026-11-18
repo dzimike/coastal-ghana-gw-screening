@@ -1,0 +1,4 @@
+threshold,observed,expected,odds_ratio,fisher_p,msr_p_fewer,msr_p_more,null_mean
+top 33%,36,29.3,1.65,0.0726,0.8758,0.1604,29.8
+top 20%,21,10.6,3.67,0.0002,0.979,0.0315,11.2
+top 10%,4,2.8,1.62,0.4973,0.7726,0.3268,2.9

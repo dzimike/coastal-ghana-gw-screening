@@ -1,0 +1,11 @@
+scheme,spearman,tier_agreement,top_quintile_retained,top_quintile_n
+"heat-weighted (0.35,0.35,0.15,0.15)",0.976,0.773,50,53
+"pressure-weighted (0.15,0.15,0.35,0.35)",0.965,0.75,48,53
+drop n_LST_trend,0.897,0.595,41,53
+drop n_LST_anom,0.716,0.375,34,53
+drop n_UGPI,0.987,0.905,50,53
+drop n_CS,0.911,0.621,47,53
+rank (percentile) normalisation,0.924,0.633,44,53
+UGPI log1p-scaled,0.984,0.811,49,53
+residual LST anomaly (climate gradient removed),0.763,0.466,44,53
+"Monte Carlo Dirichlet(1,1,1,1), 10000 draws",0.893,,47,53

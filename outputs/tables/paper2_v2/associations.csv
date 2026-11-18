@@ -1,0 +1,12 @@
+pair,rho,p_naive,p_msr
+LST trend vs built-up growth,0.289,1.8262561701615618e-06,0.0076
+LST trend vs UGPI,0.162,0.008266880158472519,0.1412
+LST trend vs distance to sea,0.233,0.00012930750305061034,0.0099
+LST anomaly vs UGPI,0.396,2.321567808934563e-11,0.0594
+LST anomaly vs distance to sea,-0.297,9.308987337187393e-07,0.0993
+LST anomaly vs land fraction,0.011,0.8595908982961924,0.8879
+LST anomaly vs valid composites per season,0.825,9.567022178746742e-67,0.0001
+LST anomaly vs mean annual rainfall,-0.879,2.991969872208587e-86,0.0001
+LST anomaly vs elevation,-0.562,2.236491154145214e-23,0.0003
+UGPI vs distance to sea,0.001,0.9908194811995114,0.9974
+"LST anomaly vs UGPI | distance, rainfall, elevation (partial)",0.299,,0.0499

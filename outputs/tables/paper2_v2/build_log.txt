@@ -1,0 +1,99 @@
+grid cells 453; centroid <= 50 km from sea: 302; > 50 km: 151 (max 170 km, 1.23 M people)
+dry seasons 2001-2023: 23; composites per season 12-12; cell-seasons dropped for < 3 composites: 652
+coastal cells with valid trend and anomaly: 264 of 302; excluded (< 18 seasons): 38
+
+LST TRENDS (coastal set)
+median Sen slope +0.0378 C/yr (IQR +0.0191 to +0.0632); p10 -0.0047, p90 +0.0851; positive 230/264 (87%)
+Hamed-Rao p < 0.05: 90 (34%), of which positive 90; BH-FDR q < 0.05: 44 (44 positive)
+full grid: n 408, median +0.0379, positive 91%, p<0.05 109, FDR 42
+domain-mean dry-season LST 29.30 C; Sen +0.0338 C/yr, Hamed-Rao p 0.0303
+cell recent (2019-2023) LST: mean 29.7, range 25.8-35.4 C
+
+ASSOCIATIONS (Spearman rho; p from naive test and from Moran spectral randomisation)
+LST trend vs built-up growth                  rho +0.289  p 1.83e-06  p_MSR 0.0076
+LST trend vs UGPI                             rho +0.162  p 0.00827  p_MSR 0.141
+LST trend vs distance to sea                  rho +0.233  p 0.000129  p_MSR 0.0099
+LST anomaly vs UGPI                           rho +0.396  p 2.32e-11  p_MSR 0.0594
+LST anomaly vs distance to sea                rho -0.297  p 9.31e-07  p_MSR 0.0993
+LST anomaly vs land fraction                  rho +0.011  p 0.86  p_MSR 0.888
+LST anomaly vs valid composites per season    rho +0.825  p 9.57e-67  p_MSR 0.0001
+LST anomaly vs mean annual rainfall           rho -0.879  p 2.99e-86  p_MSR 0.0001
+LST anomaly vs elevation                      rho -0.562  p 2.24e-23  p_MSR 0.0003
+UGPI vs distance to sea                       rho +0.001  p 0.991  p_MSR 0.997
+partial rho (LST anomaly, UGPI | distance to sea, rainfall, elevation) +0.299  p_MSR 0.0499
+              n  lst_anom  sen_slope   ugpi
+dist_sea_km                                
+(-1, 10]     70     0.963      0.027  0.073
+(10, 20]     44     0.395      0.034  0.064
+(20, 30]     41    -0.030      0.040  0.048
+(30, 40]     49    -0.559      0.038  0.046
+(40, 50]     60    -0.936      0.048  0.036
+LST anomaly, top-quintile UGPI vs rest, within distance bands:
+ugpi_top     False  True  diff_top_minus_rest  n_False  n_True
+dist_sea_km                                                   
+(-1, 10]      0.34  2.77                 2.44       52      18
+(10, 20]     -0.39  3.44                 3.83       35       9
+(20, 30]     -0.36  1.00                 1.37       31      10
+(30, 40]     -0.46 -0.92                -0.46       38      11
+(40, 50]     -0.82 -2.26                -1.45       55       5
+Moran's I: {'sen_slope': np.float64(0.551), 'lst_anom': np.float64(0.89), 'ugpi_urban_only': np.float64(0.624), 'chirps_below_normal_pct': np.float64(0.459), 'uhgpi': np.float64(0.706)}
+
+UHGPI SENSITIVITY
+LST anomaly explained by rainfall, elevation and distance to sea: R2 = 0.75
+                                         scheme  spearman  tier_agreement  top_quintile_retained  top_quintile_n
+            heat-weighted (0.35,0.35,0.15,0.15)     0.976           0.773                     50              53
+        pressure-weighted (0.15,0.15,0.35,0.35)     0.965           0.750                     48              53
+                               drop n_LST_trend     0.897           0.595                     41              53
+                                drop n_LST_anom     0.716           0.375                     34              53
+                                    drop n_UGPI     0.987           0.905                     50              53
+                                      drop n_CS     0.911           0.621                     47              53
+                rank (percentile) normalisation     0.924           0.633                     44              53
+                              UGPI log1p-scaled     0.984           0.811                     49              53
+residual LST anomaly (climate gradient removed)     0.763           0.466                     44              53
+    Monte Carlo Dirichlet(1,1,1,1), 10000 draws     0.893             NaN                     47              53
+MC Spearman 5th percentile 0.495; cells in top quintile in >= 90% of draws: 19; base top-quintile cells with P >= 0.5: 47/53
+  component  spearman_with_index    sd  mean
+n_LST_trend                0.134 0.158 0.540
+ n_LST_anom                0.800 0.254 0.404
+     n_UGPI                0.544 0.117 0.080
+       n_CS                0.681 0.157 0.603
+component Spearman correlations:
+             n_LST_trend  n_LST_anom  n_UGPI   n_CS
+n_LST_trend        1.000      -0.310   0.162 -0.132
+n_LST_anom        -0.310       1.000   0.396  0.479
+n_UGPI             0.162       0.396   1.000  0.179
+n_CS              -0.132       0.479   0.179  1.000
+full-grid index vs coastal index on 264 shared cells: Spearman 1.000
+full grid: top-quintile cells > 50 km from sea: 29 of 82
+
+CO-LOCATION OF WARMING TREND AND URBAN PRESSURE
+rows: LST-trend tertile; cols: UGPI tertile
+ugpi_urban_only   1   2   3
+sen_slope                  
+1                33  31  24
+2                28  32  28
+3                27  25  36
+threshold  observed  expected  odds_ratio  fisher_p  msr_p_fewer  msr_p_more  null_mean
+  top 33%        36      29.3        1.65    0.0726       0.8758      0.1604       29.8
+  top 20%        21      10.6        3.67    0.0002       0.9790      0.0315       11.2
+  top 10%         4       2.8        1.62    0.4973       0.7726      0.3268        2.9
+
+EXPOSURE (WorldPop 2020)
+coastal analysis set population 13.04 M; by class (M): {'Very low': 0.77, 'Low': 0.94, 'Moderate': 1.12, 'High': 1.85, 'Very high': 8.36}
+top-tertile warming x top-tertile UGPI: 36 cells, 3.95 M people
+top-quintile UHGPI cells: mean distance to sea 16 km; lon range -1.78 to 1.02
+top-quintile UHGPI cells by region: region; Greater Accra    30; Central           9; Volta             8; Eastern           4; Western           2
+top-quintile UHGPI cells by district: district; Ningo-Prampram        7; Ga West               3; Shai Osudoku          3; North Tongu           3; Ada West              3; Ada East              3; Gomoa East            2; Awutu Senya West      2; Ayensuano             2; Ketu North            2; Effia Kwesimintsim    1; Sekondi Takoradi      1
+FDR-significant warming cells by region: region; Western          18; Central          13; Eastern           5; Greater Accra     5; Volta             2; Western North     1
+FDR-significant warming cells: median slope +0.0798; mean distance to sea 27 km
+top-tertile warming x UGPI cells by district: district; Tarkwa Nsuaem          5; Nzema East             3; Ga West                3; Prestea-Huni Valley    2; Gomoa East             2; Awutu Senya West       2; Jomoro                 1; Aowin                  1; Ellembelle             1; Wassa Amenfi West      1; Effia Kwesimintsim     1; Sekondi Takoradi       1
+
+TEMPORAL CONTEXT
+GWSA: 226 months; time-based Sen slope +12.04 mm/yr
+                                            series  n  pearson_r     p  spearman   p_s
+                                calendar-year SGWA 22      0.241 0.279     0.281 0.206
+                      calendar-year detrended SGWA 22     -0.248 0.266    -0.239 0.284
+                                          DJF SGWA 20      0.234 0.320     0.248 0.292
+                                DJF detrended SGWA 20     -0.281 0.230    -0.293 0.210
+calendar-year SGWA, Lake Volta removed (2002-2018) 14      0.082 0.782     0.235 0.418
+groundwater-deficit years (annual SGWA < -0.5): [2002, 2003, 2004, 2005, 2006, 2007, 2016]; mean dry-season LST anomaly -0.18 C vs +0.06 C in other years; one-sided permutation p (deficit years hotter) 0.837

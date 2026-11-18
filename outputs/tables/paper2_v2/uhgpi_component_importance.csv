@@ -1,0 +1,5 @@
+component,spearman_with_index,sd,mean
+n_LST_trend,0.134,0.158,0.54
+n_LST_anom,0.8,0.254,0.404
+n_UGPI,0.544,0.117,0.08
+n_CS,0.681,0.157,0.603

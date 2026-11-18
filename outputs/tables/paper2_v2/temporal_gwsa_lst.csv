@@ -1,0 +1,6 @@
+series,n,pearson_r,p,spearman,p_s
+calendar-year SGWA,22,0.241,0.279,0.281,0.206
+calendar-year detrended SGWA,22,-0.248,0.266,-0.239,0.284
+DJF SGWA,20,0.234,0.32,0.248,0.292
+DJF detrended SGWA,20,-0.281,0.23,-0.293,0.21
+"calendar-year SGWA, Lake Volta removed (2002-2018)",14,0.082,0.782,0.235,0.418
