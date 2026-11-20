@@ -51,6 +51,24 @@ Code for the companion manuscript *Dry-Season Surface Warming, Urban Expansion a
 
 GRACE/GRACE-FO storage is used only as regional temporal context and is not a component of the UHGPI.
 
+## Companion study: Lake Volta storage in GRACE-derived groundwater (`scripts/paper3/`)
+
+Code for the companion manuscript *Reservoir storage masks the groundwater drought signal in GRACE over southern Ghana: separating Lake Volta from aquifer storage, 2002–2025* (in preparation). It uses the same regional GRACE domain as the screening study: the 123 JPL land cells of 0.5° in 4.0–11.5°N, 3.5°W–1.5°E.
+
+1. `download_paper3_inputs.py` downloads:
+   - CSR RL06.3 and GSFC RL06 v2.0 mascons;
+   - GLDAS-2.1 1° monthly Noah, CLSM and VIC (January 2002 – December 2025; earthaccess, Earthdata login in `~/.netrc`);
+   - the operational G-REALM 10-day Lake Volta levels (target 000393, NASA GSFC Global Water Monitor).
+2. `build_paper3_v2.py` builds:
+   - a 9-member GWSA ensemble (3 GRACE solutions × 3 land surface models, 2004–2009 baseline);
+   - the Lake Volta storage term (A·Δh/A_domain with A = 6,000 or 8,502 km², plus a half-removal case) and Bui reservoir filling scenarios;
+   - trends (Sen slope on a time axis, Hamed–Rao test), standardised and detrended drought indices, episode windows across members, and correlations with PDSI and SPI-1 to SPI-24 (effective sample size).
+   
+   It also checks the JPL × Noah 0.25° series against the screening study. Every reported statistic is written to `outputs/tables/paper3_v2/build_log.txt`. Derived series are in `data/derived/paper3/` (written to `data/processed/paper3/` by the script).
+3. `figures_paper3_v2.py`: Figs 1–7 of the manuscript.
+
+In GLDAS-2.1, CLSM has no separate groundwater store (its terrestrial storage equals profile soil moisture plus canopy water), so CLSM-based members are also reported separately.
+
 ## Data
 
 All inputs are openly available:
@@ -64,7 +82,9 @@ All inputs are openly available:
 - WorldPop 2020
 - Copernicus GLO-30 DEM
 - GADM v4.1
-- G-REALM V2 lake heights (PO.DAAC, doi:10.5067/UCLRS-GREV2)
+- G-REALM V2 lake heights (PO.DAAC, doi:10.5067/UCLRS-GREV2) and the operational G-REALM 10-day product (NASA GSFC Global Water Monitor)
+- CSR GRACE/GRACE-FO RL06.3 and GSFC RL06 v2.0 mascons; GLDAS-2.1 Noah, CLSM and VIC (1°)
+- TerraClimate PDSI
 - Nevada Geodetic Laboratory MIDAS GNSS velocities
 
 The processed datasets will be archived on Zenodo with a DOI on acceptance.

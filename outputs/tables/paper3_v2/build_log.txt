@@ -1,0 +1,172 @@
+Domain: 123 JPL land cells of 0.5 deg, area 376,774 km2
+================================================================================
+G-REALM Volta: 1075 valid 10-day heights 1992-10-04 to 2026-11-09; missions {'TOPEX': 293, 'JASN2': 286, 'SEN6A': 211, 'JASN3': 185, 'JASN1': 100}
+Operational vs G-REALM V2 monthly levels: n=298, r=1.0000, mean diff -0.000 m, SD diff 0.024 m
+Lake months missing in 2002-04..2025-12: 19, filled by linear interpolation (<= 3 months)
+Lake level anomaly range -4.07 to +7.56 m; annual means: {2002: -2.38, 2003: -2.71, 2004: 0.02, 2005: -0.31, 2006: -2.06, 2007: -2.34, 2008: 1.1, 2009: 3.59, 2010: 4.96, 2011: 6.62, 2012: 5.44, 2013: 3.57, 2014: 0.24, 2015: -2.01, 2016: -1.97, 2017: -0.47, 2018: 0.77, 2019: 2.79, 2020: 4.04, 2021: 4.89, 2022: 5.15, 2023: 6.52, 2024: 5.97, 2025: 4.5}
+1 m of lake level = {'A6000': 15.9, 'A8502': 22.6} mm EWH over the domain
+TWSA JPL: 250 months 2002-04..2025-12
+TWSA CSR: 250 months 2002-04..2025-12
+TWSA GSFC: 251 months 2002-04..2025-12
+Months with all three GRACE solutions: 248
+SMSA SD by model (mm): {'Noah': 28.0, 'CLSM': 65.6, 'VIC': 23.6}  r(Noah,CLSM,VIC): [0.76, 0.93, 0.68]
+Anchor JPL x Noah0.25 vs Paper 1 series: max abs diff 1.36 mm (note: Paper 1 averaged GLDAS over its own valid cells), trend 12.04 (Paper 1 file) / 12.04 mm/yr
+Noah 1 deg vs 0.25 deg SMSA (2002-2023): r=0.998
+
+--- Lake contribution (per member; median [min-max] across the 9 GWSA members x 2 lake areas)
+r_lake_gwsa: median 0.845 [0.755-0.914]
+p_eff: median 0.012 [0.002-0.103]
+var_explained: median 0.649 [0.444-0.824]
+sd_raw: median 97.586 [89.789-131.625]
+sd_corr: median 56.245 [38.549-98.145]
+r_lake_twsa: median 0.884 [0.866-0.933]
+Lake storage SD: A6000 52.6 mm, A8502 74.6 mm; range A8502 -92 to +171 mm
+Regression slope of GWSA on lake term (A8502): median 1.13 [1.04-1.39]
+Regression slope of GWSA_detr on lake term (A8502): median 0.71 [0.57-0.89]
+Regression slope of TWSA on lake term (A8502): median 1.08 [1.05-1.14]
+
+--- Trends (Sen slope on a time axis, mm/yr; Hamed-Rao p)
+2002-04..2025-12  none                   slope median  11.91 [ 10.46.. 16.85]  p<0.05 in 9/9  (p median 0.000)
+2002-04..2025-12  A6000                  slope median   6.80 [  5.48.. 11.85]  p<0.05 in 9/9  (p median 0.000)
+2002-04..2025-12  A8502                  slope median   4.79 [  3.39..  9.63]  p<0.05 in 9/9  (p median 0.000)
+2002-04..2025-12  A8502+Bui_dead_4.85    slope median   4.04 [  2.65..  8.90]  p<0.05 in 9/9  (p median 0.001)
+2002-04..2025-12  A8502+Bui_gross_12.57  slope median   2.79 [  1.46..  7.68]  p<0.05 in 8/9  (p median 0.018)
+2002-04..2025-12  A8502_half_recovery    slope median   8.23 [  6.92.. 13.24]  p<0.05 in 9/9  (p median 0.000)
+2002-04..2023-12  none                   slope median  12.29 [ 11.09.. 17.23]  p<0.05 in 9/9  (p median 0.000)
+2002-04..2023-12  A6000                  slope median   7.36 [  5.83.. 12.25]  p<0.05 in 9/9  (p median 0.000)
+2002-04..2023-12  A8502                  slope median   5.14 [  3.69..  9.90]  p<0.05 in 9/9  (p median 0.000)
+2002-04..2023-12  A8502+Bui_dead_4.85    slope median   4.32 [  2.90..  9.10]  p<0.05 in 9/9  (p median 0.001)
+2002-04..2023-12  A8502+Bui_gross_12.57  slope median   3.04 [  1.57..  7.75]  p<0.05 in 8/9  (p median 0.014)
+2002-04..2023-12  A8502_half_recovery    slope median   8.74 [  7.27.. 13.67]  p<0.05 in 9/9  (p median 0.000)
+2010-01..2025-12  none                   slope median   5.39 [  3.11..  9.33]  p<0.05 in 3/9  (p median 0.071)
+2010-01..2025-12  A6000                  slope median   2.38 [ -0.12..  6.61]  p<0.05 in 4/9  (p median 0.053)
+2010-01..2025-12  A8502                  slope median   1.39 [ -1.19..  5.90]  p<0.05 in 2/9  (p median 0.206)
+2010-01..2025-12  A8502+Bui_dead_4.85    slope median   0.80 [ -1.76..  5.22]  p<0.05 in 2/9  (p median 0.404)
+2010-01..2025-12  A8502+Bui_gross_12.57  slope median  -0.21 [ -2.65..  4.20]  p<0.05 in 2/9  (p median 0.373)
+2010-01..2025-12  A8502_half_recovery    slope median   3.09 [  0.80..  7.22]  p<0.05 in 5/9  (p median 0.019)
+Bui storage at full filling: dead 12.9 mm, gross 33.4 mm EWH
+TWSA JPL 2002-04..2025-12: 9.81 mm/yr; lake A8502 7.35 mm/yr
+TWSA JPL 2002-04..2023-12: 10.55 mm/yr; lake A8502 7.86 mm/yr
+TWSA JPL 2010-01..2025-12: 5.41 mm/yr; lake A8502 3.20 mm/yr
+TWSA CSR 2002-04..2025-12: 9.84 mm/yr; lake A8502 7.35 mm/yr
+TWSA CSR 2002-04..2023-12: 10.84 mm/yr; lake A8502 7.86 mm/yr
+TWSA CSR 2010-01..2025-12: 5.15 mm/yr; lake A8502 3.20 mm/yr
+TWSA GSFC 2002-04..2025-12: 11.33 mm/yr; lake A8502 7.35 mm/yr
+TWSA GSFC 2002-04..2023-12: 11.18 mm/yr; lake A8502 7.86 mm/yr
+TWSA GSFC 2010-01..2025-12: 9.53 mm/yr; lake A8502 3.20 mm/yr
+
+--- Standardised GWSA (GDSI) and episodes, ensemble-mean series
+raw_z: months < -0.5 75/248, < -1.0 62, < -1.5 25, < -2.0 2; min -2.08 (2002-11)
+   episode {'start': '2002-04', 'end': '2008-07', 'months': 76, 'dry_obs': 73, 'mean': np.float64(-1.34), 'min': np.float64(-2.08), 'min_month': '2002-11', 'left_censored': True}
+raw_zdetr: months < -0.5 86/248, < -1.0 28, < -1.5 7, < -2.0 1; min -2.15 (2016-11)
+   episode {'start': '2002-08', 'end': '2003-12', 'months': 17, 'dry_obs': 14, 'mean': np.float64(-0.9), 'min': np.float64(-1.45), 'min_month': '2002-11', 'left_censored': False}
+   episode {'start': '2004-09', 'end': '2004-12', 'months': 4, 'dry_obs': 4, 'mean': np.float64(-0.81), 'min': np.float64(-0.92), 'min_month': '2004-11', 'left_censored': False}
+   episode {'start': '2005-04', 'end': '2006-01', 'months': 10, 'dry_obs': 8, 'mean': np.float64(-0.66), 'min': np.float64(-0.99), 'min_month': '2005-11', 'left_censored': False}
+   episode {'start': '2006-05', 'end': '2007-09', 'months': 17, 'dry_obs': 16, 'mean': np.float64(-1.09), 'min': np.float64(-1.82), 'min_month': '2006-09', 'left_censored': False}
+   episode {'start': '2015-12', 'end': '2016-07', 'months': 8, 'dry_obs': 7, 'mean': np.float64(-1.25), 'min': np.float64(-1.57), 'min_month': '2015-12', 'left_censored': False}
+   episode {'start': '2016-11', 'end': '2017-06', 'months': 8, 'dry_obs': 6, 'mean': np.float64(-0.99), 'min': np.float64(-2.15), 'min_month': '2016-11', 'left_censored': False}
+   episode {'start': '2019-04', 'end': '2019-07', 'months': 4, 'dry_obs': 4, 'mean': np.float64(-0.69), 'min': np.float64(-1.0), 'min_month': '2019-07', 'left_censored': False}
+   episode {'start': '2020-06', 'end': '2021-07', 'months': 14, 'dry_obs': 11, 'mean': np.float64(-0.65), 'min': np.float64(-1.11), 'min_month': '2021-02', 'left_censored': False}
+   episode {'start': '2021-12', 'end': '2022-05', 'months': 6, 'dry_obs': 4, 'mean': np.float64(-0.48), 'min': np.float64(-0.61), 'min_month': '2021-12', 'left_censored': False}
+   episode {'start': '2025-03', 'end': '2025-12', 'months': 10, 'dry_obs': 10, 'mean': np.float64(-0.89), 'min': np.float64(-2.0), 'min_month': '2025-12', 'left_censored': False}
+corrected_z: months < -0.5 83/248, < -1.0 50, < -1.5 24, < -2.0 4; min -2.09 (2004-11)
+   episode {'start': '2002-04', 'end': '2008-06', 'months': 75, 'dry_obs': 65, 'mean': np.float64(-1.19), 'min': np.float64(-2.09), 'min_month': '2004-11', 'left_censored': True}
+   episode {'start': '2008-10', 'end': '2010-06', 'months': 21, 'dry_obs': 17, 'mean': np.float64(-0.75), 'min': np.float64(-1.07), 'min_month': '2010-04', 'left_censored': False}
+corrected_zdetr: months < -0.5 82/248, < -1.0 34, < -1.5 8, < -2.0 2; min -2.06 (2021-02)
+   episode {'start': '2002-08', 'end': '2003-08', 'months': 13, 'dry_obs': 9, 'mean': np.float64(-0.6), 'min': np.float64(-1.29), 'min_month': '2002-08', 'left_censored': False}
+   episode {'start': '2004-05', 'end': '2005-09', 'months': 17, 'dry_obs': 17, 'mean': np.float64(-1.14), 'min': np.float64(-1.84), 'min_month': '2005-06', 'left_censored': False}
+   episode {'start': '2006-05', 'end': '2006-11', 'months': 7, 'dry_obs': 4, 'mean': np.float64(-0.57), 'min': np.float64(-1.24), 'min_month': '2006-08', 'left_censored': False}
+   episode {'start': '2008-10', 'end': '2009-03', 'months': 6, 'dry_obs': 4, 'mean': np.float64(-0.55), 'min': np.float64(-0.76), 'min_month': '2009-03', 'left_censored': False}
+   episode {'start': '2009-07', 'end': '2010-06', 'months': 12, 'dry_obs': 7, 'mean': np.float64(-0.43), 'min': np.float64(-1.09), 'min_month': '2010-04', 'left_censored': False}
+   episode {'start': '2020-06', 'end': '2022-06', 'months': 25, 'dry_obs': 20, 'mean': np.float64(-0.99), 'min': np.float64(-2.06), 'min_month': '2021-02', 'left_censored': False}
+   episode {'start': '2023-01', 'end': '2023-08', 'months': 8, 'dry_obs': 5, 'mean': np.float64(-0.66), 'min': np.float64(-1.22), 'min_month': '2023-06', 'left_censored': False}
+   episode {'start': '2024-01', 'end': '2024-06', 'months': 6, 'dry_obs': 4, 'mean': np.float64(-0.52), 'min': np.float64(-0.72), 'min_month': '2024-04', 'left_censored': False}
+   episode {'start': '2025-01', 'end': '2025-08', 'months': 8, 'dry_obs': 8, 'mean': np.float64(-0.85), 'min': np.float64(-1.41), 'min_month': '2025-03', 'left_censored': False}
+
+Mean GDSI in 2015-01..2016-12 by member (raw vs lake-corrected, not detrended / detrended)
+  none   z median -0.29 [-0.58,+0.17]  detrended median -0.88 [-1.27,-0.09]  months<-0.5 median 4
+  A6000  z median +0.69 [+0.26,+0.93]  detrended median +0.77 [+0.08,+1.12]  months<-0.5 median 0
+  A8502  z median +1.16 [+1.04,+1.43]  detrended median +1.42 [+1.10,+1.57]  months<-0.5 median 0
+  half   z median +0.31 [-0.11,+0.67]  detrended median +0.15 [-0.52,+0.75]  months<-0.5 median 0
+
+Episode windows: mean z (not detrended | detrended), median [min, max] over 9 members; n members with mean < -0.5
+  2002-04..2003-12 none   z -1.65 [-1.82,-1.56] n<-0.5=9 | detr -0.73 [-1.02,-0.48] n<-0.5=8
+  2002-04..2003-12 A6000  z -1.39 [-1.72,-1.21] n<-0.5=9 | detr -0.37 [-0.86,+0.18] n<-0.5=4
+  2002-04..2003-12 A8502  z -0.98 [-1.54,-0.68] n<-0.5=9 | detr -0.07 [-0.66,+0.45] n<-0.5=1
+  2002-04..2003-12 half   z -1.55 [-1.78,-1.40] n<-0.5=9 | detr -0.55 [-0.95,-0.09] n<-0.5=6
+  2004-05..2005-09 none   z -1.15 [-1.56,-1.01] n<-0.5=9 | detr -0.25 [-0.94,+0.05] n<-0.5=3
+  2004-05..2005-09 A6000  z -1.43 [-1.80,-1.26] n<-0.5=9 | detr -0.75 [-1.31,-0.35] n<-0.5=8
+  2004-05..2005-09 A8502  z -1.50 [-1.84,-1.18] n<-0.5=9 | detr -0.90 [-1.36,-0.42] n<-0.5=8
+  2004-05..2005-09 half   z -1.36 [-1.74,-1.21] n<-0.5=9 | detr -0.61 [-1.24,-0.22] n<-0.5=6
+  2006-05..2007-09 none   z -1.38 [-1.54,-1.16] n<-0.5=9 | detr -1.09 [-1.26,-0.64] n<-0.5=9
+  2006-05..2007-09 A6000  z -0.96 [-1.25,-0.78] n<-0.5=9 | detr -0.26 [-0.79,+0.09] n<-0.5=4
+  2006-05..2007-09 A8502  z -0.64 [-0.82,-0.42] n<-0.5=7 | detr +0.07 [-0.24,+0.41] n<-0.5=0
+  2006-05..2007-09 half   z -1.15 [-1.39,-0.93] n<-0.5=9 | detr -0.64 [-1.01,-0.16] n<-0.5=6
+  2015-01..2016-12 none   z -0.29 [-0.58,+0.17] n<-0.5=1 | detr -0.88 [-1.27,-0.09] n<-0.5=6
+  2015-01..2016-12 A6000  z +0.69 [+0.26,+0.93] n<-0.5=0 | detr +0.77 [+0.08,+1.12] n<-0.5=0
+  2015-01..2016-12 A8502  z +1.16 [+1.04,+1.43] n<-0.5=0 | detr +1.42 [+1.10,+1.57] n<-0.5=0
+  2015-01..2016-12 half   z +0.31 [-0.11,+0.67] n<-0.5=0 | detr +0.15 [-0.52,+0.75] n<-0.5=1
+  2020-06..2022-06 none   z +0.61 [+0.56,+0.64] n<-0.5=0 | detr -0.39 [-0.68,-0.31] n<-0.5=3
+  2020-06..2022-06 A6000  z +0.29 [+0.24,+0.41] n<-0.5=0 | detr -0.85 [-1.29,-0.58] n<-0.5=9
+  2020-06..2022-06 A8502  z -0.02 [-0.15,+0.25] n<-0.5=0 | detr -0.86 [-1.14,-0.61] n<-0.5=9
+  2020-06..2022-06 half   z +0.44 [+0.38,+0.50] n<-0.5=0 | detr -0.68 [-1.21,-0.54] n<-0.5=9
+  2025-01..2025-12 none   z +0.83 [+0.64,+1.20] n<-0.5=0 | detr -0.68 [-1.05,-0.44] n<-0.5=7
+  2025-01..2025-12 A6000  z +0.78 [+0.38,+1.30] n<-0.5=0 | detr -0.75 [-1.18,-0.15] n<-0.5=6
+  2025-01..2025-12 A8502  z +0.62 [+0.09,+1.19] n<-0.5=0 | detr -0.57 [-0.90,+0.06] n<-0.5=6
+  2025-01..2025-12 half   z +0.82 [+0.51,+1.30] n<-0.5=0 | detr -0.77 [-1.24,-0.30] n<-0.5=6
+
+--- Climate linkage (ensemble-mean series; p from effective sample size)
+GWSA raw             PDSI    lag0 r=+0.15 (p_eff 0.648, detr +0.27 p 0.250) | max |r| lag 6 r=+0.24 p_eff 0.446; r range over lags +0.15..+0.24
+GWSA raw             SPI-1   lag0 r=+0.00 (p_eff 0.968, detr +0.03 p 0.723) | max |r| lag 2 r=+0.04 p_eff 0.562; r range over lags -0.01..+0.04
+GWSA raw             SPI-3   lag0 r=+0.05 (p_eff 0.653, detr +0.10 p 0.389) | max |r| lag 6 r=+0.12 p_eff 0.331; r range over lags +0.05..+0.12
+GWSA raw             SPI-6   lag0 r=+0.10 (p_eff 0.571, detr +0.14 p 0.363) | max |r| lag 6 r=+0.21 p_eff 0.268; r range over lags +0.10..+0.21
+GWSA raw             SPI-12  lag0 r=+0.22 (p_eff 0.476, detr +0.30 p 0.184) | max |r| lag 6 r=+0.32 p_eff 0.351; r range over lags +0.22..+0.32
+GWSA raw             SPI-24  lag0 r=+0.39 (p_eff 0.430, detr +0.52 p 0.053) | max |r| lag 6 r=+0.47 p_eff 0.362; r range over lags +0.39..+0.47
+GWSA lake-corrected  PDSI    lag0 r=+0.14 (p_eff 0.587, detr +0.22 p 0.195) | max |r| lag 6 r=+0.14 p_eff 0.567; r range over lags +0.09..+0.14
+GWSA lake-corrected  SPI-1   lag0 r=-0.06 (p_eff 0.439, detr -0.08 p 0.276) | max |r| lag 3 r=-0.16 p_eff 0.030; r range over lags -0.16..-0.06
+GWSA lake-corrected  SPI-3   lag0 r=-0.09 (p_eff 0.442, detr -0.15 p 0.143) | max |r| lag 3 r=-0.17 p_eff 0.151; r range over lags -0.17..-0.09
+GWSA lake-corrected  SPI-6   lag0 r=-0.14 (p_eff 0.375, detr -0.28 p 0.033) | max |r| lag 1 r=-0.16 p_eff 0.327; r range over lags -0.16..-0.06
+GWSA lake-corrected  SPI-12  lag0 r=-0.12 (p_eff 0.641, detr -0.30 p 0.076) | max |r| lag 0 r=-0.12 p_eff 0.641; r range over lags -0.12..-0.09
+GWSA lake-corrected  SPI-24  lag0 r=-0.08 (p_eff 0.804, detr -0.33 p 0.067) | max |r| lag 0 r=-0.08 p_eff 0.804; r range over lags -0.08..-0.02
+Lake storage         PDSI    lag0 r=+0.11 (p_eff 0.740, detr +0.14 p 0.654) | max |r| lag 6 r=+0.26 p_eff 0.430; r range over lags +0.11..+0.26
+Lake storage         SPI-1   lag0 r=+0.06 (p_eff 0.431, detr +0.09 p 0.246) | max |r| lag 6 r=+0.18 p_eff 0.015; r range over lags +0.06..+0.18
+Lake storage         SPI-3   lag0 r=+0.17 (p_eff 0.152, detr +0.22 p 0.063) | max |r| lag 6 r=+0.29 p_eff 0.021; r range over lags +0.17..+0.29
+Lake storage         SPI-6   lag0 r=+0.30 (p_eff 0.088, detr +0.36 p 0.032) | max |r| lag 6 r=+0.40 p_eff 0.032; r range over lags +0.30..+0.40
+Lake storage         SPI-12  lag0 r=+0.47 (p_eff 0.125, detr +0.55 p 0.047) | max |r| lag 6 r=+0.61 p_eff 0.065; r range over lags +0.47..+0.61
+Lake storage         SPI-24  lag0 r=+0.72 (p_eff 0.136, detr +0.82 p 0.023) | max |r| lag 6 r=+0.79 p_eff 0.108; r range over lags +0.72..+0.79
+TWSA                 PDSI    lag0 r=+0.22 (p_eff 0.451, detr +0.35 p 0.106) | max |r| lag 3 r=+0.23 p_eff 0.418; r range over lags +0.22..+0.23
+TWSA                 SPI-1   lag0 r=+0.09 (p_eff 0.242, detr +0.16 p 0.030) | max |r| lag 2 r=+0.15 p_eff 0.035; r range over lags +0.07..+0.15
+TWSA                 SPI-3   lag0 r=+0.22 (p_eff 0.063, detr +0.36 p 0.001) | max |r| lag 1 r=+0.25 p_eff 0.038; r range over lags +0.17..+0.25
+TWSA                 SPI-6   lag0 r=+0.31 (p_eff 0.071, detr +0.46 p 0.002) | max |r| lag 1 r=+0.33 p_eff 0.049; r range over lags +0.26..+0.33
+TWSA                 SPI-12  lag0 r=+0.41 (p_eff 0.146, detr +0.57 p 0.005) | max |r| lag 6 r=+0.45 p_eff 0.140; r range over lags +0.41..+0.45
+TWSA                 SPI-24  lag0 r=+0.58 (p_eff 0.136, detr +0.76 p 0.000) | max |r| lag 1 r=+0.58 p_eff 0.137; r range over lags +0.58..+0.58
+GWSA lake A6000      PDSI    lag0 r=+0.14 (p_eff 0.589, detr +0.26 p 0.127) | max |r| lag 0 r=+0.14 p_eff 0.589; r range over lags +0.14..+0.14
+GWSA lake A6000      SPI-1   lag0 r=-0.04 (p_eff 0.565, detr -0.06 p 0.410) | max |r| lag 0 r=-0.04 p_eff 0.565; r range over lags -0.04..-0.04
+GWSA lake A6000      SPI-3   lag0 r=-0.05 (p_eff 0.653, detr -0.10 p 0.326) | max |r| lag 0 r=-0.05 p_eff 0.653; r range over lags -0.05..-0.05
+GWSA lake A6000      SPI-6   lag0 r=-0.08 (p_eff 0.624, detr -0.20 p 0.135) | max |r| lag 0 r=-0.08 p_eff 0.624; r range over lags -0.08..-0.08
+GWSA lake A6000      SPI-12  lag0 r=-0.03 (p_eff 0.920, detr -0.17 p 0.320) | max |r| lag 0 r=-0.03 p_eff 0.920; r range over lags -0.03..-0.03
+GWSA lake A6000      SPI-24  lag0 r=+0.05 (p_eff 0.891, detr -0.14 p 0.445) | max |r| lag 0 r=+0.05 p_eff 0.891; r range over lags +0.05..+0.05
+GWSA lake A8502      PDSI    lag0 r=+0.12 (p_eff 0.602, detr +0.17 p 0.326) | max |r| lag 0 r=+0.12 p_eff 0.602; r range over lags +0.12..+0.12
+GWSA lake A8502      SPI-1   lag0 r=-0.07 (p_eff 0.326, detr -0.09 p 0.203) | max |r| lag 0 r=-0.07 p_eff 0.326; r range over lags -0.07..-0.07
+GWSA lake A8502      SPI-3   lag0 r=-0.13 (p_eff 0.261, detr -0.19 p 0.070) | max |r| lag 0 r=-0.13 p_eff 0.261; r range over lags -0.13..-0.13
+GWSA lake A8502      SPI-6   lag0 r=-0.21 (p_eff 0.178, detr -0.34 p 0.010) | max |r| lag 0 r=-0.21 p_eff 0.178; r range over lags -0.21..-0.21
+GWSA lake A8502      SPI-12  lag0 r=-0.22 (p_eff 0.354, detr -0.40 p 0.019) | max |r| lag 0 r=-0.22 p_eff 0.354; r range over lags -0.22..-0.22
+GWSA lake A8502      SPI-24  lag0 r=-0.22 (p_eff 0.435, detr -0.49 p 0.008) | max |r| lag 0 r=-0.22 p_eff 0.435; r range over lags -0.22..-0.22
+GWSA lake half       PDSI    lag0 r=+0.15 (p_eff 0.606, detr +0.28 p 0.113) | max |r| lag 0 r=+0.15 p_eff 0.606; r range over lags +0.15..+0.15
+GWSA lake half       SPI-1   lag0 r=-0.03 (p_eff 0.735, detr -0.03 p 0.696) | max |r| lag 0 r=-0.03 p_eff 0.735; r range over lags -0.03..-0.03
+GWSA lake half       SPI-3   lag0 r=-0.01 (p_eff 0.929, detr -0.03 p 0.806) | max |r| lag 0 r=-0.01 p_eff 0.929; r range over lags -0.01..-0.01
+GWSA lake half       SPI-6   lag0 r=-0.01 (p_eff 0.955, detr -0.07 p 0.612) | max |r| lag 0 r=-0.01 p_eff 0.955; r range over lags -0.01..-0.01
+GWSA lake half       SPI-12  lag0 r=+0.07 (p_eff 0.794, detr +0.02 p 0.920) | max |r| lag 0 r=+0.07 p_eff 0.794; r range over lags +0.07..+0.07
+GWSA lake half       SPI-24  lag0 r=+0.19 (p_eff 0.637, detr +0.13 p 0.535) | max |r| lag 0 r=+0.19 p_eff 0.637; r range over lags +0.19..+0.19
+
+CLSM TWS_inst - profile SM - canopy: max abs 0.000 mm (profile SM is the whole modelled subsurface column)
+Noah/VIC only 2002-04..2025-12: none 11.43 [10.46..12.79] sig 6/6; A6000 6.40 [5.48..7.73] sig 6/6; A8502 4.31 [3.39..5.69] sig 6/6; A8502+Bui_dead_4.85 3.55 [2.65..4.93] sig 6/6; A8502+Bui_gross_12.57 2.35 [1.46..3.76] sig 5/6; A8502_half_recovery 7.81 [6.92..9.17] sig 6/6
+Noah/VIC only 2002-04..2023-12: none 11.82 [11.09..12.56] sig 6/6; A6000 6.58 [5.83..7.45] sig 6/6; A8502 4.48 [3.69..5.24] sig 6/6; A8502+Bui_dead_4.85 3.66 [2.90..4.45] sig 6/6; A8502+Bui_gross_12.57 2.34 [1.57..3.15] sig 5/6; A8502_half_recovery 8.04 [7.27..8.92] sig 6/6
+Noah/VIC only 2010-01..2025-12: none 5.53 [4.72..9.33] sig 2/6; A6000 2.48 [1.86..6.61] sig 3/6; A8502 1.45 [0.78..5.90] sig 2/6; A8502+Bui_dead_4.85 0.83 [0.22..5.22] sig 2/6; A8502+Bui_gross_12.57 -0.15 [-0.73..4.20] sig 2/6; A8502_half_recovery 3.19 [2.60..7.22] sig 4/6
+Noah/VIC only: var explained by lake median 0.70 [0.60-0.82]
+Noah/VIC only 2015-16 mean z: none -0.34 [-0.58,-0.23]; A6000 +0.56 [+0.26,+0.76]; A8502 +1.15 [+1.04,+1.43]; half +0.21 [-0.11,+0.37]
+
+Trend spread (2002-2025, lake-corrected) by factor: mean slope per level
+  grace: {'CSR': 6.39, 'GSFC': 7.75, 'JPL': 6.35}
+  lsm: {'CLSM': 9.77, 'Noah': 5.81, 'VIC': 4.91}
+  lake: {'A6000': 7.87, 'A8502': 5.78}
