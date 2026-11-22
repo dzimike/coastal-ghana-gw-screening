@@ -1,0 +1,25 @@
+sensor,band,cells,n,measure,rho,p_msr,partial_climate,p_partial,q_msr,q_partial
+Terra,day,all cells,264,relative growth,0.279,0.0133,0.189,0.0142,0.0346,0.0346
+Terra,day,all cells,264,absolute change 2000-2020,-0.031,0.8302,0.232,0.0139,0.9148,0.0346
+Terra,day,all cells,264,UGPI,0.108,0.3739,0.277,0.003,0.4851,0.0111
+Terra,day,Tarkwa-Prestea excluded,247,relative growth,0.217,0.0519,0.166,0.0828,0.089,0.1346
+Terra,day,Tarkwa-Prestea excluded,247,absolute change 2000-2020,-0.022,0.9445,0.199,0.1542,0.9445,0.2115
+Terra,day,Tarkwa-Prestea excluded,247,UGPI,0.072,0.8386,0.235,0.0874,0.9148,0.1353
+Terra,night,all cells,264,relative growth,0.049,0.7523,0.223,0.0275,0.8807,0.0574
+Terra,night,all cells,264,absolute change 2000-2020,0.439,0.0001,0.339,0.0001,0.0016,0.0016
+Terra,night,all cells,264,UGPI,0.398,0.0003,0.348,0.0001,0.0021,0.0016
+Terra,night,Tarkwa-Prestea excluded,247,relative growth,0.045,0.7475,0.223,0.0341,0.8807,0.0682
+Terra,night,Tarkwa-Prestea excluded,247,absolute change 2000-2020,0.438,0.0002,0.313,0.002,0.0019,0.008
+Terra,night,Tarkwa-Prestea excluded,247,UGPI,0.402,0.0015,0.324,0.0018,0.0072,0.0079
+Aqua,day,all cells,261,relative growth,0.247,0.0477,0.135,0.0841,0.0848,0.1346
+Aqua,day,all cells,261,absolute change 2000-2020,-0.018,0.8878,0.196,0.0214,0.9344,0.048
+Aqua,day,all cells,261,UGPI,0.087,0.6062,0.206,0.0144,0.7657,0.0346
+Aqua,day,Tarkwa-Prestea excluded,244,relative growth,0.209,0.1215,0.13,0.1795,0.1715,0.2393
+Aqua,day,Tarkwa-Prestea excluded,244,absolute change 2000-2020,-0.014,0.932,0.169,0.0962,0.9445,0.1443
+Aqua,day,Tarkwa-Prestea excluded,244,UGPI,0.064,0.6632,0.183,0.1067,0.8162,0.1552
+Aqua,night,all cells,264,relative growth,0.032,0.794,0.225,0.0416,0.9074,0.0768
+Aqua,night,all cells,264,absolute change 2000-2020,0.255,0.0105,0.294,0.0003,0.0336,0.0021
+Aqua,night,all cells,264,UGPI,0.313,0.001,0.398,0.0002,0.006,0.0019
+Aqua,night,Tarkwa-Prestea excluded,247,relative growth,-0.014,0.8955,0.211,0.0407,0.9344,0.0768
+Aqua,night,Tarkwa-Prestea excluded,247,absolute change 2000-2020,0.253,0.022,0.258,0.007,0.048,0.024
+Aqua,night,Tarkwa-Prestea excluded,247,UGPI,0.287,0.013,0.355,0.0013,0.0346,0.0069

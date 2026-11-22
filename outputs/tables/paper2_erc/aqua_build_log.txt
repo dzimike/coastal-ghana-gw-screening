@@ -1,0 +1,70 @@
+Aqua files 546; composites 252; seasons 2003-2023; minimum valid seasons per cell 16
+Day: mean valid composites per cell-season, Terra 7.3, Aqua 7.5
+Night: mean valid composites per cell-season, Terra 10.9, Aqua 10.8
+
+TRENDS, COMMON PERIOD STARTING 2003
+sensor  band  end  cells  median_slope  pct_positive  fdr_cells  domain_slope  domain_p
+  Aqua   day 2019    261        0.0688          83.5         52        0.0640    0.1007
+  Aqua   day 2021    261        0.0678          88.9         83        0.0727    0.0118
+  Aqua   day 2023    261        0.0660          91.2        113        0.0678    0.0002
+ Terra   day 2019    264        0.0499          83.0         25        0.0463    0.0001
+ Terra   day 2021    264        0.0590          92.0         61        0.0667    0.0051
+ Terra   day 2023    264        0.0489          92.4         85        0.0513    0.0028
+  Aqua night 2019    264        0.0505         100.0         77        0.0575    0.0098
+  Aqua night 2021    264        0.0610         100.0        127        0.0640    0.0001
+  Aqua night 2023    264        0.0531         100.0        173        0.0550    0.0000
+ Terra night 2019    264        0.0519         100.0         84        0.0541    0.0006
+ Terra night 2021    264        0.0677         100.0        211        0.0713    0.0078
+ Terra night 2023    264        0.0674         100.0        257        0.0693    0.0023
+
+AGREEMENT BETWEEN SENSORS
+band                      day   night
+cells                     261     264
+rho_cell_slopes         0.706   0.588
+rho_recent_lst          0.952   0.983
+r_domain                0.765   0.959
+r_domain_detrended      0.643   0.971
+terra_minus_aqua_mean  -2.561   0.891
+diff_slope             -0.027  0.0162
+diff_slope_p           0.2157  0.0086
+diff_2003_2019         -2.555   0.844
+diff_2021_2023         -2.467   1.154
+shift                   0.088    0.31
+shift_p                0.9211  0.0018
+
+WARMING AND BUILT-UP GROWTH
+Benjamini-Hochberg control over all 48 tests; q < 0.05: 22
+sensor  band                   cells   n                   measure    rho  p_msr  partial_climate  p_partial  q_msr  q_partial
+ Terra   day               all cells 264           relative growth  0.279 0.0133            0.189     0.0142 0.0346     0.0346
+ Terra   day               all cells 264 absolute change 2000-2020 -0.031 0.8302            0.232     0.0139 0.9148     0.0346
+ Terra   day               all cells 264                      UGPI  0.108 0.3739            0.277     0.0030 0.4851     0.0111
+ Terra   day Tarkwa-Prestea excluded 247           relative growth  0.217 0.0519            0.166     0.0828 0.0890     0.1346
+ Terra   day Tarkwa-Prestea excluded 247 absolute change 2000-2020 -0.022 0.9445            0.199     0.1542 0.9445     0.2115
+ Terra   day Tarkwa-Prestea excluded 247                      UGPI  0.072 0.8386            0.235     0.0874 0.9148     0.1353
+ Terra night               all cells 264           relative growth  0.049 0.7523            0.223     0.0275 0.8807     0.0574
+ Terra night               all cells 264 absolute change 2000-2020  0.439 0.0001            0.339     0.0001 0.0016     0.0016
+ Terra night               all cells 264                      UGPI  0.398 0.0003            0.348     0.0001 0.0021     0.0016
+ Terra night Tarkwa-Prestea excluded 247           relative growth  0.045 0.7475            0.223     0.0341 0.8807     0.0682
+ Terra night Tarkwa-Prestea excluded 247 absolute change 2000-2020  0.438 0.0002            0.313     0.0020 0.0019     0.0080
+ Terra night Tarkwa-Prestea excluded 247                      UGPI  0.402 0.0015            0.324     0.0018 0.0072     0.0079
+  Aqua   day               all cells 261           relative growth  0.247 0.0477            0.135     0.0841 0.0848     0.1346
+  Aqua   day               all cells 261 absolute change 2000-2020 -0.018 0.8878            0.196     0.0214 0.9344     0.0480
+  Aqua   day               all cells 261                      UGPI  0.087 0.6062            0.206     0.0144 0.7657     0.0346
+  Aqua   day Tarkwa-Prestea excluded 244           relative growth  0.209 0.1215            0.130     0.1795 0.1715     0.2393
+  Aqua   day Tarkwa-Prestea excluded 244 absolute change 2000-2020 -0.014 0.9320            0.169     0.0962 0.9445     0.1443
+  Aqua   day Tarkwa-Prestea excluded 244                      UGPI  0.064 0.6632            0.183     0.1067 0.8162     0.1552
+  Aqua night               all cells 264           relative growth  0.032 0.7940            0.225     0.0416 0.9074     0.0768
+  Aqua night               all cells 264 absolute change 2000-2020  0.255 0.0105            0.294     0.0003 0.0336     0.0021
+  Aqua night               all cells 264                      UGPI  0.313 0.0010            0.398     0.0002 0.0060     0.0019
+  Aqua night Tarkwa-Prestea excluded 247           relative growth -0.014 0.8955            0.211     0.0407 0.9344     0.0768
+  Aqua night Tarkwa-Prestea excluded 247 absolute change 2000-2020  0.253 0.0220            0.258     0.0070 0.0480     0.0240
+  Aqua night Tarkwa-Prestea excluded 247                      UGPI  0.287 0.0130            0.355     0.0013 0.0346     0.0069
+
+URBAN CONTRAST (top-quintile UGPI minus other cells), 2019-2023
+             Terra day  Terra night  Aqua day  Aqua night
+dist_sea_km                                              
+0-10              2.44         0.65      3.41        0.50
+10-20             3.85         1.31      4.84        1.24
+20-30             1.32         0.56      1.75        0.53
+30-40            -0.49         0.20     -0.47        0.29
+40-50            -1.42         0.00     -1.81        0.10

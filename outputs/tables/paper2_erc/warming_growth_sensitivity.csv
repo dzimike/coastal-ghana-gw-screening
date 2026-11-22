@@ -1,0 +1,7 @@
+measure,n,rho,p_msr,partial_climate,p_partial_climate,partial_climate_baseline,p_partial_baseline
+relative growth 2000-2025 (baseline),264,0.289,0.008,0.221,0.0025,0.269,0.0003
+relative growth 2000-2020 (no extrapolated epoch),264,0.293,0.0082,0.241,0.0012,0.273,0.0004
+absolute built-up change 2000-2020,264,0.019,0.8737,0.266,0.0013,0.243,0.0008
+absolute built-up change 2000-2025,264,0.015,0.8966,0.259,0.0024,0.234,0.001
+"relative growth, Tarkwa-Prestea excluded",247,0.232,0.0351,0.2,0.0294,0.244,0.0161
+"absolute change 2000-2020, Tarkwa-Prestea excluded",247,0.041,0.8859,0.248,0.0272,0.22,0.0265

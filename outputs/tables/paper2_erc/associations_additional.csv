@@ -1,0 +1,12 @@
+test,n,rho,p_msr
+night trend vs built-up growth,264,-0.027,0.8654
+night trend vs UGPI,264,0.345,0.0018
+night anomaly vs UGPI,264,0.294,0.2056
+night anomaly vs distance to sea,264,-0.607,0.0001
+night anomaly vs rainfall,264,-0.613,0.0002
+night anomaly vs elevation,264,-0.727,0.0001
+night anomaly vs day anomaly,264,0.64,0.0012
+"night anomaly vs UGPI | distance, rainfall, elevation",264,0.301,0.0447
+trend 2001-2019 vs built-up growth,263,0.271,0.0111
+LST trend vs trend in valid composites,264,0.162,0.1007
+"LST trend vs relative growth | sampling trend, distance, rainfall, elevation",264,0.194,0.0071

@@ -40,20 +40,25 @@ Earthdata (GRACE, GLDAS, HyP3) and Copernicus CDS (ERA5) credentials are read fr
 
 Run order after the MintPy run: `export_velocity_v2.py`, `build_cgsri_v2.py --velocity <ROOT>/data/processed/subsidence/mintpy_velocity_los_v2.tif`, `insar_diagnostics_v2.py`, `revision_checks_v2.py`, `colocation_permutation.py`, then the figure scripts.
 
-## Companion study: dry-season surface warming and urban groundwater-demand pressure (`scripts/paper2/`)
+## Dry-season surface warming and urban groundwater-demand pressure (`scripts/paper2/`)
 
-Code for the companion manuscript *Dry-Season Surface Warming, Urban Expansion and Groundwater-Demand Pressure in Coastal Ghana: An Exploratory Multi-Sensor Screening* (in preparation). It reuses the 10 km grid, UGPI, CHIRPS climate stress and regional GWSA built above.
+Code for the manuscript *Dry-season surface warming, urban expansion and groundwater-demand pressure in coastal Ghana: an exploratory multi-sensor screening* (in preparation). It uses the 10 km grid, UGPI and CHIRPS climate stress built above, and the regional storage ensemble built in `scripts/paper3/`.
 
 1. `download_modis_lst.py`, `download_modis_h18.py`: MODIS MOD11A2 v6.1 tiles h17v08 and h18v08 (earthaccess; Earthdata login in `~/.netrc`).
 2. `process_modis_lst.py`: quality-masks (QC_Day bits 0–1 = 00), scales, reprojects to EPSG:32630 at 1 km, mosaics the two tiles and writes `lst_8day_by_cell.csv` (mean of valid pixels per 10 km cell and 8-day composite). Its trend step is the superseded v1 analysis.
 3. `build_uhgpi_v2.py`: restricts the grid to cells whose centroid lies within 50 km of the sea (Natural Earth 10 m coastline, read from the cartopy data directory); builds Dec–Feb seasons 2001–2023 (≥ 3 composites per season), Hamed–Rao trends with Benjamini–Hochberg FDR (≥ 18 seasons), the 2019–2023 LST anomaly, the Urban Heat–Groundwater Pressure Index (UHGPI; equal-weight mean of normalised LST trend, LST anomaly, UGPI and climate stress), the sensitivity tests, Moran spectral randomisation tests and the GWSA–LST temporal comparison. Outputs: `data/derived/paper2/` and `outputs/tables/paper2_v2/` (`build_log.txt` lists every reported statistic).
-4. `figures_paper2_v2.py`: Figs 1–8 of the manuscript.
+4. `download_modis_aqua.py`: Aqua MYD11A2 v6.1 tiles h17v08 and h18v08 for the December–February seasons 2003–2023.
+5. `build_paper2_erc_checks.py`: night-time LST, trend sensitivity to the final season (Terra orbit drift), TerraClimate Tmax comparison, sensitivity of the warming–growth association (growth measure, projected GHSL epoch, climatic controls, Tarkwa–Prestea exclusion), cloud sampling, and the regional storage–LST tests across 27 ensemble members with effective sample size and FDR control. Every statistic is written to `outputs/tables/paper2_erc/build_log.txt`.
+6. `build_paper2_aqua_check.py`: compares Terra and Aqua over 2003–2023 (trends, sensor agreement, urban associations and urban contrast). Log: `outputs/tables/paper2_erc/aqua_build_log.txt`.
+7. `figures_paper2_erc.py`: Figures 1–9 and Supplementary Figures S1–S2 of the current manuscript. `figures_paper2_v2.py` produced the earlier figure set.
+
+Cell-level results are in `data/derived/paper2/` and `data/derived/paper2/erc/`.
 
 GRACE/GRACE-FO storage is used only as regional temporal context and is not a component of the UHGPI.
 
-## Companion study: Lake Volta storage in GRACE-derived groundwater (`scripts/paper3/`)
+## Lake Volta storage in GRACE-derived groundwater (`scripts/paper3/`)
 
-Code for the companion manuscript *Reservoir storage masks the groundwater drought signal in GRACE over southern Ghana: separating Lake Volta from aquifer storage, 2002–2025* (in preparation). It uses the same regional GRACE domain as the screening study: the 123 JPL land cells of 0.5° in 4.0–11.5°N, 3.5°W–1.5°E.
+Code for the manuscript *Reservoir storage masks the groundwater drought signal in GRACE over southern Ghana: separating Lake Volta from aquifer storage, 2002–2025* (in preparation). It uses the regional GRACE domain described above: the 123 JPL land cells of 0.5° in 4.0–11.5°N, 3.5°W–1.5°E.
 
 1. `download_paper3_inputs.py` downloads:
    - CSR RL06.3 and GSFC RL06 v2.0 mascons;
@@ -64,8 +69,8 @@ Code for the companion manuscript *Reservoir storage masks the groundwater droug
    - the Lake Volta storage term (A·Δh/A_domain with A = 6,000 or 8,502 km², plus a half-removal case) and Bui reservoir filling scenarios;
    - trends (Sen slope on a time axis, Hamed–Rao test), standardised and detrended drought indices, episode windows across members, and correlations with PDSI and SPI-1 to SPI-24 (effective sample size).
    
-   It also checks the JPL × Noah 0.25° series against the screening study. Every reported statistic is written to `outputs/tables/paper3_v2/build_log.txt`. Derived series are in `data/derived/paper3/` (written to `data/processed/paper3/` by the script).
-3. `figures_paper3_v2.py`: Figs 1–7 of the manuscript.
+   It also compares the JPL × Noah 1° and 0.25° series and runs the uncertainty, seasonal-cycle, threshold, baseline, start/end-year, FDR and lake-extent checks. Every reported statistic is written to `outputs/tables/paper3_v2/build_log.txt`. Derived series are in `data/derived/paper3/` (written to `data/processed/paper3/` by the script).
+3. `figures_paper3_v2.py`: Figs 1–7 and Supplementary Figs S1–S3 of the manuscript.
 
 In GLDAS-2.1, CLSM has no separate groundwater store (its terrestrial storage equals profile soil moisture plus canopy water), so CLSM-based members are also reported separately.
 

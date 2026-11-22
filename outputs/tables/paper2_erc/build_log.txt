@@ -1,0 +1,75 @@
+1. PIPELINE CHECK (fast day aggregation vs series used in the index)
+cell-seasons compared 5782; r 0.9976; mean diff -0.004 C; RMSD 0.179 C
+
+2. NIGHT-TIME LST
+cells with >= 18 valid night seasons: 264 of 264; mean valid composites per season 10.9; recent night LST 21.0-25.2 C
+night Sen slope median +0.0599 C/yr (IQR +0.0535 to +0.0685); positive 264/264 (100%); p<0.05 257 (257 positive); FDR 257 (257 positive)
+cells where Hamed-Rao variance was negative (original MK p used): 4
+domain-mean night LST 21.79 C; Sen +0.0625 C/yr; Hamed-Rao p 0.00153
+night trend vs built-up growth           rho -0.027  p_MSR 0.8654
+night trend vs UGPI                      rho +0.345  p_MSR 0.0018
+night anomaly vs UGPI                    rho +0.294  p_MSR 0.2056
+night anomaly vs distance to sea         rho -0.607  p_MSR 0.0001
+night anomaly vs rainfall                rho -0.613  p_MSR 0.0002
+night anomaly vs elevation               rho -0.727  p_MSR 0.0001
+night anomaly vs day anomaly             rho +0.640  p_MSR 0.0012
+partial night anomaly vs UGPI | distance, rainfall, elevation: +0.301  p_MSR 0.0447
+night anomaly, top-quintile UGPI vs other cells, by distance band:
+             other_mean  top_mean  other_n  top_n  diff
+dist_sea_km                                            
+0-10               0.68      1.32       52     18  0.65
+10-20             -0.16      1.15       35      9  1.31
+20-30             -0.26      0.30       31     10  0.56
+30-40             -0.46     -0.26       38     11  0.20
+40-50             -0.64     -0.64       55      5  0.00
+
+3. TERRA ORBIT DRIFT: DAYTIME TRENDS BY END YEAR
+ band  end  cells  median_slope  pct_positive  fdr_cells  rho_vs_growth  domain_slope  domain_p
+  day 2019    263        0.0339          75.7          9          0.271        0.0183    0.0826
+  day 2020    263        0.0462          85.6         15          0.322        0.0319    0.1443
+  day 2021    264        0.0441          87.1         34          0.270        0.0452    0.0571
+  day 2022    264        0.0407          89.4         38          0.339        0.0422    0.0369
+  day 2023    264        0.0378          87.1         44          0.289        0.0338    0.0303
+night 2019    264        0.0443         100.0        139         -0.009        0.0463    0.0002
+night 2020    264        0.0508         100.0        190          0.000        0.0529    0.0212
+night 2021    264        0.0594         100.0        246         -0.020        0.0627    0.0060
+night 2022    264        0.0597         100.0        251          0.019        0.0625    0.0034
+night 2023    264        0.0599         100.0        257         -0.027        0.0625    0.0015
+
+TerraClimate air temperature, Dec-Feb mean over the analysis cells
+tmin: files not available
+variable lst  end  n  air_slope  air_p  lst_slope  lst_p     r  r_detrended
+    tmax day 2019 19     0.0321 0.0358     0.0183 0.0826 0.231        0.134
+    tmax day 2023 23     0.0321 0.0083     0.0338 0.0303 0.382        0.163
+trend 2001-2019 vs built-up growth: rho +0.271, p_MSR 0.0111, n 263
+
+4. WARMING AND BUILT-UP GROWTH: SENSITIVITY
+cells with zero built-up in 2000: 0; median 2000 built-up fraction 0.49%; rho(relative growth, 2000 built-up fraction) -0.448; rho(relative growth, absolute change) +0.073
+domain-level zero-baseline cells set by growth formula: n_BUGR values at those cells {'count': 0.0, 'min': nan, 'max': nan}
+cells within 30 km of Tarkwa: 17; median trend there +0.0781 vs +0.0360 elsewhere; FDR-significant there 8
+                                           measure   n   rho  p_msr  partial_climate  p_partial_climate  partial_climate_baseline  p_partial_baseline
+              relative growth 2000-2025 (baseline) 264 0.289 0.0080            0.221             0.0025                     0.269              0.0003
+ relative growth 2000-2020 (no extrapolated epoch) 264 0.293 0.0082            0.241             0.0012                     0.273              0.0004
+                absolute built-up change 2000-2020 264 0.019 0.8737            0.266             0.0013                     0.243              0.0008
+                absolute built-up change 2000-2025 264 0.015 0.8966            0.259             0.0024                     0.234              0.0010
+          relative growth, Tarkwa-Prestea excluded 247 0.232 0.0351            0.200             0.0294                     0.244              0.0161
+absolute change 2000-2020, Tarkwa-Prestea excluded 247 0.041 0.8859            0.248             0.0272                     0.220              0.0265
+
+5. CLOUD SAMPLING
+OLS trend in valid composites per season: median +0.024 per yr; IQR +0.001 to +0.050
+domain mean valid composites per season 7.20; OLS +0.023/yr; p 0.457; r(domain LST, domain valid composites) -0.092
+LST trend vs trend in valid composites: rho +0.162, p_MSR 0.1007
+LST trend vs relative growth | sampling trend + climate covariates: +0.194, p_MSR 0.0071
+
+6. REGIONAL GROUNDWATER CONTEXT
+tests across members: 108; q<0.05 for correlations: 0; q<0.05 for deficit-years-hotter: 0
+lake-corrected | Dec-Feb | detrended: n 20; ensemble r -0.33 (n_eff 20.0, p 0.15); members r -0.53 to -0.11; p<0.05 5/18, q<0.05 0; deficit years 2005,2006,2009,2021,2022,2023; LST +0.00 vs -0.00 C; p(hotter) 0.48; members p(hotter)<0.05 4, q<0.05 0; diff range -0.08 to +0.52
+lake-corrected | Dec-Feb | raw: n 20; ensemble r +0.27 (n_eff 11.9, p 0.40); members r +0.01 to +0.40; p<0.05 0/18, q<0.05 0; deficit years 2003,2004,2005,2006,2007,2009,2010; LST -0.09 vs +0.01 C; p(hotter) 0.64; members p(hotter)<0.05 0, q<0.05 0; diff range -0.57 to +0.22
+lake-corrected | calendar year | detrended: n 20; ensemble r -0.34 (n_eff 20.0, p 0.14); members r -0.51 to -0.14; p<0.05 7/18, q<0.05 0; deficit years 2002,2004,2005,2006,2020,2021,2022,2023; LST +0.13 vs -0.08 C; p(hotter) 0.17; members p(hotter)<0.05 5, q<0.05 0; diff range +0.08 to +0.62
+lake-corrected | calendar year | raw: n 20; ensemble r +0.27 (n_eff 11.5, p 0.41); members r +0.10 to +0.36; p<0.05 0/18, q<0.05 0; deficit years 2002,2003,2004,2005,2006,2007,2008,2009; LST -0.35 vs +0.19 C; p(hotter) 0.99; members p(hotter)<0.05 0, q<0.05 0; diff range -0.59 to -0.06
+uncorrected | Dec-Feb | detrended: n 20; ensemble r -0.24 (n_eff 20.0, p 0.31); members r -0.32 to -0.16; p<0.05 0/9, q<0.05 0; deficit years 2003,2005,2006,2007,2016,2017,2021; LST +0.15 vs -0.08 C; p(hotter) 0.16; members p(hotter)<0.05 0, q<0.05 0; diff range +0.16 to +0.38
+uncorrected | Dec-Feb | raw: n 20; ensemble r +0.33 (n_eff 11.7, p 0.30); members r +0.22 to +0.42; p<0.05 0/9, q<0.05 0; deficit years 2003,2004,2005,2006,2007,2008; LST -0.40 vs +0.13 C; p(hotter) 0.98; members p(hotter)<0.05 0, q<0.05 0; diff range -0.57 to -0.46
+uncorrected | calendar year | detrended: n 20; ensemble r -0.29 (n_eff 20.0, p 0.21); members r -0.35 to -0.22; p<0.05 0/9, q<0.05 0; deficit years 2002,2003,2005,2006,2007,2016,2019,2020,2021; LST +0.24 vs -0.20 C; p(hotter) 0.02; members p(hotter)<0.05 6, q<0.05 0; diff range +0.19 to +0.51
+uncorrected | calendar year | raw: n 20; ensemble r +0.30 (n_eff 11.5, p 0.36); members r +0.23 to +0.36; p<0.05 0/9, q<0.05 0; deficit years 2002,2003,2004,2005,2006,2007,2008; LST -0.34 vs +0.14 C; p(hotter) 0.97; members p(hotter)<0.05 0, q<0.05 0; diff range -0.48 to -0.24
+annual years: 2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2019,2020,2021,2022,2023
+djf years: 2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2019,2020,2021,2022,2023
