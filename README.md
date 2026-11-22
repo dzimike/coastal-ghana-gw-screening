@@ -58,7 +58,7 @@ GRACE/GRACE-FO storage is used only as regional temporal context and is not a co
 
 ## Lake Volta storage in GRACE-derived groundwater (`scripts/paper3/`)
 
-Code for the manuscript *Reservoir storage masks the groundwater drought signal in GRACE over southern Ghana: separating Lake Volta from aquifer storage, 2002–2025* (in preparation). It uses the regional GRACE domain described above: the 123 JPL land cells of 0.5° in 4.0–11.5°N, 3.5°W–1.5°E.
+Code for the manuscript *Reservoir storage masks the groundwater drought signal in GRACE over Ghana and adjoining areas: separating Lake Volta from aquifer storage, 2002–2025* (in preparation). It uses the regional GRACE domain described above: the 123 JPL land cells of 0.5° in 4.0–11.5°N, 3.5°W–1.5°E.
 
 1. `download_paper3_inputs.py` downloads:
    - CSR RL06.3 and GSFC RL06 v2.0 mascons;
@@ -70,7 +70,13 @@ Code for the manuscript *Reservoir storage masks the groundwater drought signal 
    - trends (Sen slope on a time axis, Hamed–Rao test), standardised and detrended drought indices, episode windows across members, and correlations with PDSI and SPI-1 to SPI-24 (effective sample size).
    
    It also compares the JPL × Noah 1° and 0.25° series and runs the uncertainty, seasonal-cycle, threshold, baseline, start/end-year, FDR and lake-extent checks. Every reported statistic is written to `outputs/tables/paper3_v2/build_log.txt`. Derived series are in `data/derived/paper3/` (written to `data/processed/paper3/` by the script).
-3. `figures_paper3_v2.py`: Figs 1–7 and Supplementary Figs S1–S3 of the manuscript.
+3. `build_paper3_jhrs_checks.py`: what the domain contains (63% Ghana), the size of the correction uncertainty, and how representative 2002–2025 is of the 1981–2025 rainfall and 1992–2026 lake-level records.
+4. `extract_gsw_lake_monthly.py`: monthly Lake Volta water area, October 1992 – December 2020, from the openly published 30 m JRC Global Surface Water v1.4 tiles (windowed reads; no Earth Engine account needed).
+5. `build_lake_hypsometry.py`: fits the level–area relationship A(h) to the G-REALM levels (leave-one-year-out selection, year-block bootstrap, MODIS extent check), integrates it to lake storage and tests its effect on both studies.
+6. `build_paper3_curve_results.py`: recomputes all results with the level-dependent correction as the main case, with scaled, half-removal, constant-area and Bui sensitivity cases. Every reported statistic is in `outputs/tables/paper3_jhrs/results_log.txt`.
+7. `figures_paper3_jhrs.py`: Figs 1–8, Supplementary Figs S1–S3 and the graphical abstract of the current manuscript. `figures_paper3_v2.py` holds the shared map helpers and the earlier figure set.
+
+Derived series are in `data/derived/paper3/` (including the level–area pairs and curve, and the monthly JRC areas in `gsw/`) and `data/derived/paper3_jhrs/`.
 
 In GLDAS-2.1, CLSM has no separate groundwater store (its terrestrial storage equals profile soil moisture plus canopy water), so CLSM-based members are also reported separately.
 

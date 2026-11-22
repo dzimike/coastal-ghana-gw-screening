@@ -1,0 +1,26 @@
+1. DOMAIN: 123 cells, equal-area 374,359 km2
+     country  km2_in_domain  country_km2  share_of_domain_pct  share_of_country_pct
+       Ghana       234140.8     238668.7                 62.5                  98.1
+        Togo        52401.6      56863.4                 14.0                  92.2
+Burkina Faso        38177.9     272768.8                 10.2                  14.0
+ Ivory Coast        35102.8     320677.3                  9.4                  10.9
+       Benin        10208.4     116113.4                  2.7                   8.8
+not assigned to a country (coastal cell fractions): 1.2%
+
+2. CORRECTION UNCERTAINTY (mm)
+lake-area bound difference: median |d| 22.0; detrended SD 17.0
+detrended SD of ensemble-mean corrected GWSA: A6000 35.0, A8502 38.4; uncorrected 54.5
+member half-range of uncorrected GWSA: median 44.6
+2012 to 2016 fall in annual means: GWSA 132.50; lake A8502 171.42; lake A6000 120.97
+
+3. LONG-TERM CONTEXT
+CHIRPS annual rainfall 1981-2025: mean 1182 mm, SD 118, range 856 (1983) to 1389 (1999)
+1981-2001 mean 1165; 2002-2025 mean 1197 (+2.8%); Mann-Whitney p 0.2901; Sen +1.37 mm/yr, Hamed-Rao p 0.1108
+study-period range covers 93% of the 45 years; driest 2013 percentile in 1981-2025 4; wettest 2010 percentile 96
+  2002-2007: mean 1196 mm (+1.2% of the 1981-2025 mean)
+  2008-2013: mean 1221 mm (+3.3% of the 1981-2025 mean)
+  2014-2017: mean 1084 mm (-8.3% of the 1981-2025 mean)
+  2015-2016: mean 1083 mm (-8.4% of the 1981-2025 mean)
+  2018-2025: mean 1236 mm (+4.6% of the 1981-2025 mean)
+G-REALM annual mean level, relative to reference: 1993-2001 mean -1.76 m; 2002-2007 -3.28; 2008-2013 +2.53; 2014-2018 -2.43; 2019-2025 +3.15
+range of annual levels 1993-2001: -4.01 to +0.33; 2002-2025: -4.14 to +4.93
