@@ -514,5 +514,124 @@ log('\nTrend spread (2002-2025, lake-corrected) by factor: mean slope per level'
 for f in ['grace', 'lsm', 'lake']:
     log(f'  {f}:', t_full.groupby(f).slope.mean().round(2).to_dict())
 
+# ------------------------------------------------------------------ 7. uncertainty, seasonal cycle and sensitivity tests
+log('\n--- 7a. JPL formal uncertainty (1-sigma per 3-degree mascon) averaged over the domain')
+unc = (jpl.uncertainty.sel(**box) * 10).where(MASK)
+mid = jpl.mascon_ID.sel(**box).where(MASK)
+ids = np.unique(mid.values[np.isfinite(mid.values)])
+w = np.array([(mid.values == i).sum() for i in ids], float)
+w = w / w.sum()
+U = []
+for t in range(unc.sizes['time']):
+    u = unc.isel(time=t).values
+    s_i = np.array([np.nanmean(u[mid.values == i]) for i in ids])
+    U.append((np.sqrt(np.nansum((w * s_i) ** 2)), np.nansum(w * s_i)))
+U = pd.DataFrame(U, columns=['independent', 'correlated'], index=month_index(jpl.time.values))
+U = U[~U.index.duplicated()].reindex(months)
+log(f'{len(ids)} JPL mascons intersect the domain; domain-mean 1-sigma uncertainty median {U.independent.median():.1f} mm '
+    f'(independent mascon errors) to {U.correlated.median():.1f} mm (fully correlated); '
+    f'GRACE-FO period median {U.correlated["2018-06":].median():.1f} mm, GRACE period {U.correlated[:"2017-06"].median():.1f} mm')
+U.to_csv(OUTD / 'jpl_domain_uncertainty.csv')
+
+log('\n--- 7b. Mean seasonal cycle (absolute storage, months with all GRACE solutions)')
+def clim(s):
+    s = s.reindex(months).dropna()
+    c = s.groupby(s.index.month).mean()
+    return c - c.mean()
+seas = {'TWS (3-solution mean)': clim(pd.concat([tws[k].reindex(cal.union(tws[k].index)) for k in tws], axis=1).mean(1))}
+for k, v in lsm.items():
+    seas[f'SM {k}'] = clim(v.sm.reindex(cal))
+seas['Canopy (Noah)'] = clim(lsm['Noah'].cw.reindex(cal))
+for a, A in A_LAKE.items():
+    seas[f'Lake {a}'] = clim(lvl_c * A / A_DOMAIN * 1000)
+sc_tab = pd.DataFrame({k: dict(amplitude_mm=v.max() - v.min(), month_max=int(v.idxmax()), month_min=int(v.idxmin()))
+                       for k, v in seas.items()}).T
+sc_tab.to_csv(TAB / 'seasonal_cycle_components.csv')
+pd.DataFrame(seas).to_csv(OUTD / 'seasonal_climatology.csv')
+for k, r in sc_tab.iterrows():
+    log(f'  {k:22s} amplitude {r.amplitude_mm:6.1f} mm, max month {int(r.month_max):2d}, min month {int(r.month_min):2d}')
+
+log('\n--- 7c. Drought-threshold sensitivity (ensemble-mean series)')
+rows = []
+for thr in (-0.5, -0.8, -1.0):
+    for k in Z:
+        z = Z[k].dropna()
+        eps = episodes(z, thr=thr)
+        rows.append(dict(series=k, threshold=thr, months_below=int((z < thr).sum()), n_episodes=len(eps),
+                         episodes='; '.join(f"{e['start']}..{e['end']} ({e['min']:.2f})" for e in eps)))
+        log(f'  {k:16s} thr {thr:+.1f}: {int((z < thr).sum()):3d} months, episodes: ' + rows[-1]['episodes'])
+pd.DataFrame(rows).to_csv(TAB / 'threshold_sensitivity.csv', index=False)
+
+log('\n--- 7d. Baseline sensitivity: 2004-2009 vs full-period (2002-04..2025-12) climatology')
+def anomaly_full(s):
+    b = s.reindex(months).dropna()
+    c = b.groupby(b.index.month).mean()
+    return s - s.index.month.map(c).values
+tw_f = pd.DataFrame({k: anomaly_full(s.reindex(cal.union(s.index))) for k, s in tws.items()}).reindex(months)
+sm_f = pd.DataFrame({k: anomaly_full(v.sm.reindex(cal)) for k, v in lsm.items()}).reindex(months)
+cw_f = pd.DataFrame({k: anomaly_full(v.cw.reindex(cal)) for k, v in lsm.items()}).reindex(months)
+lk_f = {a: anomaly_full(lvl_c) * A / A_DOMAIN * 1000 for a, A in A_LAKE.items()}
+gw_f = pd.DataFrame({f'{g}-{m}': tw_f[g] - sm_f[m] - cw_f[m] for g, m in product(tws, LSM)})
+gwc_f = pd.DataFrame({f'{c}|{a}': gw_f[c] - lk_f[a].reindex(months) for c, a in product(gw_f.columns, A_LAKE)})
+rows = []
+for nm, a_, b_ in [('raw', gw.mean(1), gw_f.mean(1)), ('corrected', gwc.mean(1), gwc_f.mean(1))]:
+    za, zb = zscore(a_), zscore(b_)
+    row = dict(series=nm, r_z=np.corrcoef(za, zb)[0, 1], trend_base0409=trend(a_)[0], trend_fullclim=trend(b_)[0])
+    for wname, (a, b) in WINDOWS.items():
+        row[f'zdetr_{wname}_0409'] = zscore(detrend(a_))[a:b].mean()
+        row[f'zdetr_{wname}_full'] = zscore(detrend(b_))[a:b].mean()
+    rows.append(row)
+    log(f'  {nm}: r(z) {row["r_z"]:.3f}; trend {row["trend_base0409"]:.2f} vs {row["trend_fullclim"]:.2f} mm/yr; detrended window means '
+        + '; '.join(f'{w_} {row[f"zdetr_{w_}_0409"]:+.2f}/{row[f"zdetr_{w_}_full"]:+.2f}' for w_ in WINDOWS))
+pd.DataFrame(rows).to_csv(TAB / 'baseline_sensitivity.csv', index=False)
+
+log('\n--- 7e. Trend sensitivity to start and end year (ensemble-mean series, Sen slope, Hamed-Rao p)')
+ser = {'uncorrected': gw.mean(1), 'lake 6,000 km2': pd.concat([SCEN['A6000'](c) for c in gw.columns], axis=1).mean(1),
+       'lake 8,502 km2': pd.concat([SCEN['A8502'](c) for c in gw.columns], axis=1).mean(1)}
+rows = []
+for nm, s in ser.items():
+    for y0 in range(2002, 2013):
+        sl, p = trend(s[f'{y0}-01-01':END])
+        rows.append(dict(series=nm, vary='start', year=y0, slope=sl, p=p))
+    for y1 in range(2014, 2026):
+        sl, p = trend(s[START:f'{y1}-12-01'])
+        rows.append(dict(series=nm, vary='end', year=y1, slope=sl, p=p))
+ts = pd.DataFrame(rows)
+ts.to_csv(TAB / 'trend_start_end_sensitivity.csv', index=False)
+for (nm, v), g in ts.groupby(['series', 'vary'], sort=False):
+    log(f'  {nm:15s} vary {v:5s}: slope {g.slope.min():.2f}..{g.slope.max():.2f} mm/yr; p<0.05 for years '
+        f'{g[g.p < 0.05].year.min() if (g.p < 0.05).any() else "-"}..{g[g.p < 0.05].year.max() if (g.p < 0.05).any() else "-"} '
+        f'({int((g.p < 0.05).sum())}/{len(g)})')
+
+log('\n--- 7f. False discovery rate across the lag-0 correlation tests')
+c0 = cl[cl.lag == 0]
+pv = np.concatenate([c0.p_eff.values, c0.p_detr.values])
+order = np.argsort(pv)
+m_ = len(pv)
+q = pv[order] * m_ / (np.arange(m_) + 1)
+q = np.minimum.accumulate(q[::-1])[::-1]
+qv = np.empty(m_)
+qv[order] = np.minimum(q, 1)
+lab = [f'{t}|{d}|monthly' for t, d in zip(c0.target, c0.driver)] + [f'{t}|{d}|detrended' for t, d in zip(c0.target, c0.driver)]
+fdr = pd.DataFrame({'test': lab, 'p': pv, 'q_bh': qv}).sort_values('p')
+fdr.to_csv(TAB / 'climate_linkage_fdr.csv', index=False)
+log(f'{m_} tests; p < 0.05 in {int((pv < 0.05).sum())}; BH q < 0.05 in {int((qv < 0.05).sum())}; q < 0.10 in {int((qv < 0.10).sum())}')
+log('  smallest: ' + '; '.join(f'{r.test} p={r.p:.3f} q={r.q_bh:.3f}' for r in fdr.head(8).itertuples()))
+
+log('\n--- 7g. G-REALM MODIS-based Lake Volta extent (2022-2026) as a check on the area bounds')
+rows = []
+for ln in open(RAW / 'lake_volta/gwm/lake000393.ext.2.txt'):
+    p_ = ln.split()
+    if len(p_) == 5 and re.fullmatch(r'\d{8}', p_[0]):
+        rows.append((pd.to_datetime(p_[0]), float(p_[1]), int(p_[3])))
+ext = pd.DataFrame(rows, columns=['date', 'area', 'q']).set_index('date')
+ext = ext[(ext.q == 0) & (ext.area < 90000)]
+em = ext.area.resample('MS').median()
+jj = pd.concat([em, lvl], axis=1, keys=['A', 'h'], sort=True).dropna()
+log(f'{len(ext)} good-quality extents {ext.index.min():%Y-%m}..{ext.index.max():%Y-%m}; monthly median area '
+    f'{em.median():,.0f} km2 (IQR {em.quantile(.25):,.0f}-{em.quantile(.75):,.0f}); r(area, level) = {np.corrcoef(jj.A, jj.h)[0, 1]:.2f} '
+    f'(n={len(jj)}); mean level anomaly in these months {dh.reindex(jj.index).mean():+.2f} m')
+ext.to_csv(OUTD / 'lake_volta_modis_extent.csv')
+
 (TAB / 'build_log.txt').write_text('\n'.join(LOG) + '\n')
 print('\nwrote', TAB / 'build_log.txt')

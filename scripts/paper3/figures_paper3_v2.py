@@ -288,6 +288,64 @@ def fig7():
     plt.close(fig)
 
 
+
+# ---------------------------------------------------------------- Supplementary figures
+def figS1():
+    sc = pd.read_csv(PRO / 'seasonal_climatology.csv', index_col=0)
+    sty = {'TWS (3-solution mean)': ('k', '-'), 'SM Noah': ('#1b9e77', '-'), 'SM CLSM': ('#d95f02', '-'),
+           'SM VIC': ('#7570b3', '-'), 'Lake A8502': (C_LAKE, '--'), 'Lake A6000': (C_LAKE, ':')}
+    fig, ax = plt.subplots(figsize=(6.0, 3.6))
+    for k, (c, ls) in sty.items():
+        ax.plot(sc.index, sc[k], color=c, ls=ls, lw=1.4, marker='o', ms=3, label=k.replace('A8502', '(8,502 km²)').replace('A6000', '(6,000 km²)'))
+    ax.axhline(0, color='k', lw=0.5)
+    ax.set_xticks(range(1, 13))
+    ax.set_xticklabels(['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'])
+    ax.set_ylabel('Mean seasonal anomaly (mm EWH)')
+    ax.legend(fontsize=7, frameon=False, ncol=2)
+    fig.tight_layout()
+    fig.savefig(OUT / 'figS1_seasonal_cycle.png')
+    plt.close(fig)
+
+
+def figS2():
+    ts = pd.read_csv(TAB / 'trend_start_end_sensitivity.csv')
+    cols = {'uncorrected': C_RAW, 'lake 6,000 km2': '#67a9cf', 'lake 8,502 km2': C_COR}
+    fig, axs = plt.subplots(1, 2, figsize=(7.2, 3.4), sharey=True)
+    for ax, v, xl in [(axs[0], 'start', 'Start year (end December 2025)'), (axs[1], 'end', 'End year (start April 2002)')]:
+        for nm, c in cols.items():
+            g = ts[(ts.series == nm) & (ts.vary == v)]
+            ax.plot(g.year, g.slope, color=c, lw=1.2, label=nm.replace('km2', 'km²'))
+            ax.scatter(g.year[g.p < 0.05], g.slope[g.p < 0.05], color=c, s=14, zorder=3)
+            ax.scatter(g.year[g.p >= 0.05], g.slope[g.p >= 0.05], facecolor='white', edgecolor=c, s=14, zorder=3)
+        ax.axhline(0, color='k', lw=0.5)
+        ax.set_xlabel(xl)
+        ax.grid(color='#eeeeee')
+    axs[0].set_ylabel('Ensemble-mean GWSA trend (mm yr⁻¹)')
+    axs[0].legend(fontsize=7, frameon=False)
+    fig.text(0.99, 0.01, 'Filled: Hamed–Rao p < 0.05', ha='right', fontsize=6.5)
+    fig.tight_layout()
+    fig.savefig(OUT / 'figS2_trend_start_end.png')
+    plt.close(fig)
+
+
+def figS3():
+    U = pd.read_csv(PRO / 'jpl_domain_uncertainty.csv', index_col=0, parse_dates=True)
+    ens = pd.read_csv(PRO / 'gwsa_ensemble_summary.csv', index_col=0, parse_dates=True)
+    fig, ax = plt.subplots(figsize=(7.2, 3.2))
+    gap(ax)
+    ax.fill_between(U.index, U.independent, U.correlated, color='#636363', alpha=0.35, lw=0, label='JPL formal 1σ, domain mean (independent–correlated)')
+    ax.plot(ens.index, (ens.gwsa_raw_max - ens.gwsa_raw_min) / 2, color=C_RAW, lw=1, label='Half-range of the 9 GWSA members')
+    ax.plot(ens.index, (ens.lake_A8502 - ens.lake_A6000).abs(), color=C_LAKE, lw=1, label='Difference between lake-area bounds')
+    ax.plot(ens.index, ens.lake_A8502.abs(), color=C_LAKE, lw=0.8, ls=':', label='|Lake storage anomaly| (8,502 km²)')
+    ax.set_ylabel('mm EWH')
+    ax.legend(fontsize=6.5, frameon=False, loc='upper left')
+    ax.xaxis.set_major_locator(mdates.YearLocator(4))
+    ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y'))
+    fig.tight_layout()
+    fig.savefig(OUT / 'figS3_uncertainty_sources.png')
+    plt.close(fig)
+
+
 if __name__ == '__main__':
     fig1()
     fig2()
@@ -297,4 +355,7 @@ if __name__ == '__main__':
     fig5()
     fig6()
     fig7()
+    figS1()
+    figS2()
+    figS3()
     print('figures written to', OUT)
